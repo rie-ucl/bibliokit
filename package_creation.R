@@ -1,0 +1,22 @@
+library(usethis)
+library(roxygen2)
+library(devtools)
+library(rscopus)
+
+use_r("hello")
+use_r("expand_queries")
+
+use_description( fields = list(
+  Title = "A Toolkit for Bibliometric Analysis",
+  Description = "A package for bibliometric analysis and data visualisation",
+  Author = "Rie Matsumoto",
+  Maintainer = "Rie Matsumoto <rie.hayashi.22@ucl.ac.uk>"
+))
+use_mit_license( copyright_holder = "Rie Matsumoto" )
+
+document()
+
+use_version( "patch" )
+build()
+
+check()
