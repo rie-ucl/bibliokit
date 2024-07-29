@@ -83,7 +83,7 @@ expand_terms <- function( naive_terms ) {
 
   selected_terms <- litsearchr::get_keywords( litsearchr::reduce_graph( g, cutoff_cum ) )
 
-  expanded_query <- paste0( "TITLE-ABS-KEY (", paste0('"', selected_terms, '"', collapse = ' AND '), ")" )
+  expanded_query <- paste0( "TITLE-ABS-KEY (", paste0('"', selected_terms, '"', collapse = ' OR '), ")" )
 
   return( expanded_query )
 }
