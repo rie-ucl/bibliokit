@@ -1,7 +1,8 @@
 library(usethis)
 library(roxygen2)
 library(devtools)
-library(rscopus)
+
+# library(rscopus)
 
 # use_r("hello")
 # use_r("expand_queries")
@@ -14,7 +15,9 @@ library(rscopus)
 # ))
 # use_mit_license( copyright_holder = "Rie Matsumoto" )
 
-# use_version( "patch" )
+use_version( "major" )
+use_version( "minor" )
+use_version( "patch" )
 
 document()
 

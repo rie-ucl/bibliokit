@@ -7,9 +7,8 @@
 scopus_country_analysis(res)
 }
 \arguments{
-\item{res}{A list containing Scopus search results with a component
-\code{entries} which is a list of publication details. Each entry should
-have the fields \code{dc:title}, \code{prism:coverDate}, and \code{affiliation}
+\item{res}{Scopus search results, including \code{entries}, which is a list of publication details.
+Each entry should have the fields \code{dc:title}, \code{prism:coverDate}, and \code{affiliation}
 (with \code{affiliation-country}).}
 }
 \value{
@@ -22,7 +21,7 @@ country rankings, global share, and trends over years.
 }
 \examples{
 # Create a sample `res` list to simulate Scopus API search results
-res <- list(
+res = list(
   entries = list(
     list(
       `dc:title` = "A Study on Data Analysis",
@@ -73,6 +72,6 @@ res <- list(
 )
 
 # Example usage of the function with the sample data
-scopus_country_analysis(res)
+scopus_country_analysis( res )
 
 }

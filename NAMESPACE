@@ -2,4 +2,6 @@
 
 export(expand_terms)
 export(hello)
+export(scopus_10year_records)
 export(scopus_country_analysis)
+import(rscopus)
