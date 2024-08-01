@@ -18,5 +18,7 @@ Imports:
   tibble (>= 3.2.1),
   ggplot2 (>= 3.5.0),
   ggrepel (>= 0.9.5),
+  igraph (>= 2.0.3),
+  ggraph (>= 2.2.0),
   rscopus (>= 0.7.2),
   litsearchr (>= 1.0.0)
