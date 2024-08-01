@@ -10,7 +10,7 @@ expand_terms(naive_terms)
 \item{naive_terms}{A character vector of one or more initial search queries.}
 }
 \value{
-A character vector containing the original queries along with expanded queries.
+A character vector containing the original queries along with expanded search terms.
 }
 \description{
 This function takes one or more initial search terms and returns
@@ -19,9 +19,9 @@ The expansion helps to capture more relevant results by broadening the search cr
 }
 \examples{
 # Single query
-expand_terms("data analysis")
+expand_terms( "data analysis" )
 
 # Multiple queries
-expand_terms(c("data analysis", "machine learning"))
+expand_terms( c( "data analysis", "machine learning" ) )
 
 }

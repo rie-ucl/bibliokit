@@ -162,7 +162,7 @@ scopus_10year_records <- function(terms, search_type = "TITLE-ABS-KEY", other_fi
   if (!dir.exists( save_dir ) ) {
     dir.create( save_dir, recursive = TRUE )
   }
-  save_file_name <- paste0("scopus-", format(Sys.Date(), "%Y_%m_%d"), "-", gsub(" ", "_", terms[1]), ".rda")
+  save_file_name <- paste0("rscopus-", format(Sys.Date(), "%Y_%m_%d"), "-", gsub(" ", "_", terms[1]), ".rda")
   save_path <- file.path( save_dir, save_file_name )
   save( res, file = save_path )
 

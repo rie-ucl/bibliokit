@@ -1,4 +1,4 @@
-#' Scopus Country Analysis
+#' Scopus Country Overview
 #'
 #' This function analyzes the countries associated with publications
 #' from Scopus search results and provides various insights such as
@@ -61,11 +61,11 @@
 #' )
 #'
 #' # Example usage of the function with the sample data
-#' scopus_country_analysis( res )
+#' scopus_country_overview( res )
 #'
 #' @export
 
-scopus_country_analysis <- function( res ) {
+scopus_country_overview <- function( res ) {
 
   entries <- res$entries
 

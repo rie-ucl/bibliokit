@@ -23,4 +23,15 @@ document()
 
 build()
 
+test_dir("tests/testthat")
+
 check()
+
+#-----------------------------------------------------
+library(testthat)
+library(httptest)
+
+source("R/expand_terms.R")
+start_capturing()
+result <- expand_terms("data analysis")
+stop_capturing()

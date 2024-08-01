@@ -5,13 +5,13 @@
 #' The expansion helps to capture more relevant results by broadening the search criteria.
 #'
 #' @param naive_terms A character vector of one or more initial search queries.
-#' @return A character vector containing the original queries along with expanded queries.
+#' @return A character vector containing the original queries along with expanded search terms.
 #' @examples
 #' # Single query
-#' expand_terms("data analysis")
+#' expand_terms( "data analysis" )
 #'
 #' # Multiple queries
-#' expand_terms(c("data analysis", "machine learning"))
+#' expand_terms( c( "data analysis", "machine learning" ) )
 #'
 #' @export
 
@@ -83,7 +83,5 @@ expand_terms <- function( naive_terms ) {
 
   selected_terms <- litsearchr::get_keywords( litsearchr::reduce_graph( g, cutoff_cum ) )
 
-  expanded_query <- paste0( "TITLE-ABS-KEY (", paste0('"', selected_terms, '"', collapse = ' OR '), ")" )
-
-  return( expanded_query )
+  return( selected_terms )
 }
