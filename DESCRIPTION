@@ -6,12 +6,19 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Author: Rie Matsumoto
 Maintainer: Rie Matsumoto <rie.hayashi.22@ucl.ac.uk>
-Description: A package for bibliometric analysis and data visualisation
+Description: 
+  This package offers tools for analyzing and visualizing bibliometric data 
+  from academic literature. It includes functions for extracting and processing 
+  citation data, generating keyword co-occurrence networks, and producing author 
+  and publication statistics. The package aims to assist researchers in 
+  exploring trends and patterns in scientific publications.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Imports:
+  utils (>= 4.3.2),
+  httr (>= 1.4.7),
   readr (>= 2.1.4),
   dplyr (>= 1.1.4),
   tidyr (>= 1.3.1),

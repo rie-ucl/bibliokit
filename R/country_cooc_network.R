@@ -23,35 +23,37 @@
 #'     list(
 #'       authkeywords = "Artificial Intelligence|Machine Learning",
 #'       affiliation = list(
-#'         list(affiliation-country = "USA")
+#'         list( `affiliation-country` = "USA" )
 #'       )
 #'     ),
 #'     list(
 #'       authkeywords = "Artificial Intelligence|Data Science",
 #'       affiliation = list(
-#'         list(affiliation-country = "UK")
+#'         list( `affiliation-country` = "UK" )
 #'       )
 #'     ),
 #'     list(
 #'       authkeywords = "Machine Learning|Data Science",
 #'       affiliation = list(
-#'         list(affiliation-country = "Canada")
+#'         list( `affiliation-country` = "Canada")
 #'       )
 #'     ),
 #'     list(
 #'       authkeywords = "Artificial Intelligence|Machine Learning|Data Science",
 #'       affiliation = list(
-#'         list(affiliation-country = "Germany")
+#'         list( `affiliation-country` = "Germany")
 #'       )
 #'     )
 #'   )
 #' )
 #'
 #' # Create the network graph
-#' network_graph <- country_cooccurrence_network( res )
+#' network_graph <- country_cooc_network( res )
 #' print( network_graph )
+#'
+#' @export
 
-country_cooccurrence_network <- function( res ) {
+country_cooc_network <- function( res ) {
 
   topics_countries <- data.frame(
     topic = character(),
@@ -92,9 +94,25 @@ country_cooccurrence_network <- function( res ) {
     dplyr::filter( length( countries ) > 1 ) |>
     dplyr::mutate(pairs = list(t(combn(countries, 2)))) |>
     tidyr::unnest(pairs) |>
-    dplyr::count(V1 = pairs[,1], V2 = pairs[,2], name = "cooccur" )
+    dplyr::count(V1 = pairs[,1], V2 = pairs[,2], name = "co" )
 
-  country_pairs |>
-    tidyr::pivot_wider( names_from = V2, values_from = cooccur, values_fill = 0 )
+  country_matrix <- country_pairs |>
+    tidyr::pivot_wider( names_from = V2, values_from = co, values_fill = 0 )
 
+  g <- igraph::graph_from_data_frame( country_pairs, directed = FALSE )
+
+  g_kk <- ggraph::ggraph( g, layout = "kk" ) +
+    ggraph::geom_edge_link(
+      ggplot2::aes( edge_width = co, edge_alpha = co ), show.legend = FALSE ) +
+    ggraph::geom_node_point(
+      ggplot2::aes( size = igraph::degree( g, mode = "all" ) + 1, colour = name, fill = name ),
+      shape = 21, show.legend = FALSE ) +
+    ggraph::geom_node_text( ggplot2::aes( label = name ), repel = TRUE, size = 3 ) +
+    ggraph::scale_edge_width( range = c( 0.1, 4 ) ) +
+    ggraph::scale_edge_alpha( range = c( 0.1, 0.5 ) ) +
+    ggraph::scale_color_viridis( discrete = TRUE, option = "inferno" ) +
+    ggraph::scale_fill_viridis( discrete = TRUE, option = "inferno" ) +
+    ggplot2::theme_minimal()
+
+  return( g_kk )
 }

@@ -1,6 +1,11 @@
 library(usethis)
 library(roxygen2)
 library(devtools)
+document()
+build()
+check()
+
+# test_dir("tests/testthat")
 
 # library(rscopus)
 
@@ -19,13 +24,7 @@ use_version( "major" )
 use_version( "minor" )
 use_version( "patch" )
 
-document()
 
-build()
-
-test_dir("tests/testthat")
-
-check()
 
 #-----------------------------------------------------
 library(testthat)
