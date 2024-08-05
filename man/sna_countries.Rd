@@ -32,7 +32,6 @@ The network is constructed based on the frequency of shared keywords between cou
 The resulting graph can help in understanding how countries are connected through common research topics.
 }
 \examples{
-# Example of `res` with dummy data
 res <- list(
   entries = list(
     list(
@@ -62,7 +61,6 @@ res <- list(
   )
 )
 
-# Create the network graph
 network_graph <- sna_countries( res )
 print( network_graph )
 

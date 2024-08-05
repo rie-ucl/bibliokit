@@ -14,17 +14,19 @@
 #' )
 #' get_search_terms(res)
 #'
+#' @import utils
+#'
 #' @export
 
-get_search_terms <- function(res) {
+get_search_terms <- function( res ) {
   url <- res$get_statements$url
 
   query <- sub(".*query=", "", url)
-  query_decoded <- URLdecode(query)
+  query_decoded <- URLdecode( query )
 
   terms <- list()
 
-  query_parts <- unlist( strsplit(query_decoded, "\\s+(AND|OR)\\s+") )
+  query_parts <- unlist( strsplit( query_decoded, "\\s+(AND|OR)\\s+") )
 
   query_types <- unique( gsub("\\((.*)\\)", "", query_parts) )
 
@@ -38,7 +40,7 @@ get_search_terms <- function(res) {
       values <- trimws(gsub('"', '', values_str))
 
       values_split <- unlist(strsplit(values, "\\s+(AND|OR)\\s+"))
-      terms[[query_type]] <- trimws(values_split)
+      terms[[query_type]] <- trimws( values_split )
     }
   }
 

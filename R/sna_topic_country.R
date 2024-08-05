@@ -38,6 +38,10 @@
 #'
 #' sna_topic_country( res )
 #'
+#' @import dplyr
+#' @import utils
+#' @import ggplot2
+#'
 #' @export
 
 sna_topic_country <- function( res ) {
@@ -84,8 +88,8 @@ sna_topic_country <- function( res ) {
     dplyr::count( country ) |>
     dplyr::arrange( dplyr::desc(n) )
 
-  top_countries <- country_ranking |> head(6)  |> dplyr::pull(country)
-  top_topics    <- topic_ranking   |> head(10) |> dplyr::pull(topic)
+  top_countries <- country_ranking |> utils::head(6)  |> dplyr::pull(country)
+  top_topics    <- topic_ranking   |> utils::head(10) |> dplyr::pull(topic)
 
   top_data <- topics_countries |>
     dplyr::filter( topic %in% top_topics, country %in% top_countries )

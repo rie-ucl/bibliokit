@@ -20,7 +20,6 @@ from Scopus search results and provides various insights such as
 country rankings, global share, and trends over years.
 }
 \examples{
-# Create a sample `res` list to simulate Scopus API search results
 res = list(
   entries = list(
     list(
@@ -71,7 +70,6 @@ res = list(
   )
 )
 
-# Example usage of the function with the sample data
 plot_country_overview( res )
 
 }

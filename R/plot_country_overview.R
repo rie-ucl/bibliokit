@@ -9,7 +9,6 @@
 #'   (with `affiliation-country`).
 #' @return A ggplot2 object showing the analysis results.
 #' @examples
-#' # Create a sample `res` list to simulate Scopus API search results
 #' res = list(
 #'   entries = list(
 #'     list(
@@ -60,8 +59,10 @@
 #'   )
 #' )
 #'
-#' # Example usage of the function with the sample data
 #' plot_country_overview( res )
+#'
+#' @import utils
+#' @import dplyr
 #'
 #' @export
 

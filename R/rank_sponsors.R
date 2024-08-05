@@ -29,6 +29,8 @@
 #' )
 #' rank_sponsors(res, n = 20)
 #'
+#' @import utils
+#'
 #' @export
 
 rank_sponsors <- function( res, n = 10 ) {
@@ -56,7 +58,7 @@ rank_sponsors <- function( res, n = 10 ) {
     dplyr::group_by( sponsor, country ) |>
     dplyr::summarise( n_per_country = dplyr::n(),
                       n_citations = sum( n_citations ) ) |>
-    dplyr::arrange( desc( n_per_country ) ) |>
+    dplyr::arrange( dplyr::desc( n_per_country ) ) |>
     dplyr::mutate( country_with_num = paste0( country, "(", n_per_country, ")" ) ) |>
     dplyr::group_by( sponsor ) |>
     dplyr::summarise(

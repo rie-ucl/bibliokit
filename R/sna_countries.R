@@ -17,7 +17,6 @@
 #'   are colored based on their weight.
 #'
 #' @examples
-#' # Example of `res` with dummy data
 #' res <- list(
 #'   entries = list(
 #'     list(
@@ -47,9 +46,10 @@
 #'   )
 #' )
 #'
-#' # Create the network graph
 #' network_graph <- sna_countries( res )
 #' print( network_graph )
+#'
+#' @import dplyr
 #'
 #' @export
 

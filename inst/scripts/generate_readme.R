@@ -1,0 +1,57 @@
+library(stringr)
+
+desc_lines <- readLines( "DESCRIPTION" )
+
+package_name <- str_extract( desc_lines[1], "(?<=Package: )[^\\s]+" )
+
+description <- str_extract( paste( desc_lines, collapse = " " ), "(?<=Description: ).*?(?= License:)" )
+license <- str_extract( paste( desc_lines, collapse = " " ), "(?<=License: )[^\\s]+" )
+encoding <- str_extract( paste( desc_lines, collapse = " " ), "(?<=Encoding: )[^\\s]+" )
+roxygen_note <- str_extract( paste(desc_lines, collapse = " " ), "(?<=RoxygenNote: )[^\\s]+" )
+imports <- str_extract(paste( desc_lines, collapse = " " ), "(?<=Imports: ).*" )
+imports_list <- strsplit( imports, ",\\s*" )[[1]]
+
+description_section <- paste(
+  description, "\n\n",
+  "- License: ", license, "\n",
+  "- Encoding: ", encoding, "\n",
+  "- RoxygenNote: ", roxygen_note, "\n",
+  "### Imports\n",
+  paste("- ", imports_list, collapse = "\n"), sep = ""
+)
+
+r_files <- list.files( path = "R", pattern = "\\.R$", full.names = TRUE )
+
+r_descriptions <- lapply( r_files, function( file ) {
+  lines <- readLines( file )
+  description_lines <- lines[ grepl( "^#'", lines ) ]
+  if ( length( description_lines ) > 0) {
+    description <- gsub("^#'\\s*", "", description_lines)
+    description <- gsub("@param", "### Parameter\n", description, fixed = TRUE)
+    description <- gsub("@return", "### Returned value\n", description, fixed = TRUE)
+    description <- gsub("@examples", "### Example usage of the function with the sample data\n```r\n", description, fixed = TRUE)
+    description <- gsub("@import", "```\n### Imported libraries\n", description, fixed = TRUE)
+    description <- gsub("@export", "", description, fixed = TRUE)
+    description <- paste(description, collapse = "\n")
+  } else {
+    description <- "No description available."
+  }
+  return( description )
+})
+
+r_files_descriptions <- mapply( function( file, desc ) {
+  file_name <- basename(file)
+  paste0( "## ", file_name, "\n\n", desc, "\n" )
+}, r_files, r_descriptions, SIMPLIFY = FALSE)
+
+manual_content <- paste(
+  "# ", package_name, "\n\n",
+  "## DESCRIPTION\n\n",
+  description_section, "\n\n",
+  paste( r_files_descriptions, collapse = "\n\n" ),
+  sep = ""
+)
+
+writeLines( manual_content, "README.md" )
+
+print( "README.md has been generated successfully." )

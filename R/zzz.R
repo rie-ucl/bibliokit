@@ -12,5 +12,9 @@ utils::globalVariables( c(
   "affil",
 
   #rank_authors
-  "id", "institution", "n_citations", "n_publications"
+  "id", "institution", "n_citations", "n_publications",
+
+  # rank_sponsors
+  "cite_per_pub", "country_disp", "country_display", "country_list",
+  "country_with_num", "desc", "n_countries", "n_per_country", "sponsor"
   ) )

@@ -1,6 +1,8 @@
 library(usethis)
 library(roxygen2)
 library(devtools)
+
+source("inst/scripts/generate_readme.R")
 document()
 build()
 check()

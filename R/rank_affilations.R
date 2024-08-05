@@ -41,6 +41,8 @@
 #' # Generate a ranking of the top 20 cities
 #' rank_affiliations( res, n = 20, type = "city")
 #'
+#' @import dplyr
+#'
 #' @export
 
 rank_affiliations <- function( res, n = 20, type = "country" ) {
