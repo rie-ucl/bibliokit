@@ -7,15 +7,13 @@
 #' @param naive_terms A character vector of one or more initial search queries.
 #' @return A character vector containing the original queries along with expanded search terms.
 #' @examples
-#' # Single query
-#' expand_terms( "data analysis" )
+#' expand_search_terms( c( "data analysis", "machine learning" ) )
 #'
-#' # Multiple queries
-#' expand_terms( c( "data analysis", "machine learning" ) )
+#' @import utils
 #'
 #' @export
 
-expand_terms <- function( naive_terms ) {
+expand_search_terms <- function( naive_terms ) {
 
   QUERY = paste0( "TITLE-ABS-KEY (", paste0('"', naive_terms, '"', collapse = ' AND '), ")" )
   # CTIME = format( Sys.time(), "%Y%m%d_%H%M" )

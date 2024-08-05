@@ -1,4 +1,4 @@
-#' Scopus Country Trend
+#' Plot Country Trend
 #'
 #' This function analyzes the annual publication trends for countries
 #' from Scopus search results, providing insights into how research output
@@ -61,12 +61,14 @@
 #' )
 #'
 #' # Example usage of the function with the sample data
-#' scopus_country_trend( res )
+#' plot_country_trend( res )
+#'
+#' @import utils
 #'
 #' @export
 
 
-scopus_country_trend <- function( res ) {
+plot_country_trend <- function( res ) {
 
   entries <- res$entries
 
@@ -93,7 +95,7 @@ scopus_country_trend <- function( res ) {
     dplyr::filter( country != "Unknown" )  |>
     dplyr::count( country, sort = TRUE ) |>
     utils::head( 5 ) |>
-    dplyr::arrange( desc(n) ) |>
+    dplyr::arrange( dplyr::desc(n) ) |>
     dplyr::pull( country )
 
   latest_year <- ifelse(

@@ -13,6 +13,8 @@
 #' )
 #' #' get_search_query( res )
 #'
+#' @import utils
+#'
 #' @export
 
 get_search_query <- function( res ) {

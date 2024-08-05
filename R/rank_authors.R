@@ -19,23 +19,29 @@
 #'   entries = list(
 #'     list(author = list(
 #'          list(authid = "012345", authname = "Smith J.",
-#'               affiliation = list(list(`affilname` = "University A", `affiliation-country` = "Country A"))),
+#'               affiliation = list(list(`affilname` = "University A",
+#'                                       `affiliation-country` = "Country A"))),
 #'          list(authid = "333333", authname = "Doe J.",
-#'               affiliation = list(list(`affilname` = "University B", `affiliation-country` = "Country B")))),
+#'               affiliation = list(list(`affilname` = "University B",
+#'                                       `affiliation-country` = "Country B")))),
 #'          `citedby-count` = 10, `prism:coverDate` = "2024-12-01"),
 #'     list(author = list(
 #'          list(authid = "012345", authname = "Smith J.",
-#'               affiliation = list(list(`affilname` = "University A", `affiliation-country` = "Country A"))),
+#'               affiliation = list(list(`affilname` = "University A",
+#'                                       `affiliation-country` = "Country A"))),
 #'          list(authid = "987654", authname = "Brown S.",
-#'               affiliation = list(list(`affilname` = "University C", `affiliation-country` = "Country C")))),
+#'               affiliation = list(list(`affilname` = "University C",
+#'                                       `affiliation-country` = "Country C")))),
 #'          `citedby-count` = 5, `prism:coverDate` = "2020-12-01")
 #'   )
 #' )
-#' rank_author(res, n = 20, include_all = FALSE)
+#' rank_authors(res, n = 20, include_all = FALSE)
+#'
+#' @import utils
 #'
 #' @export
 
-rank_author <- function(res, n = 20, include_all = FALSE) {
+rank_authors <- function(res, n = 20, include_all = FALSE) {
 
   authors_data <- unlist(lapply(res$entries, function(entry) {
     authors <- entry$author
@@ -77,7 +83,7 @@ rank_author <- function(res, n = 20, include_all = FALSE) {
 
   authors_list <- authors_tibble |>
     dplyr::group_by( id ) |>
-    dplyr::arrange( desc( date ) ) |>
+    dplyr::arrange( dplyr::desc( date ) ) |>
     dplyr::summarise(
       name = dplyr::first( name[!is.na( name )] ),
       institution = dplyr::first( institution[!is.na( institution )] ),
@@ -94,9 +100,9 @@ rank_author <- function(res, n = 20, include_all = FALSE) {
       .groups = "drop"
     ) |>
     dplyr::filter( !is.na( id ) ) |>
-    dplyr::arrange(desc(n_publications), desc(n_citations)) |>
+    dplyr::arrange( dplyr::desc(n_publications), dplyr::desc(n_citations) ) |>
     dplyr::mutate(rank = dplyr::row_number(), .before = 1) |>
-    head(n)
+    utils::head(n)
 
   author_rankings <- author_rankings |>
     dplyr::left_join( authors_list, by = dplyr::join_by("id") ) |>

@@ -1,4 +1,4 @@
-#' Scopus Country Overview
+#' Plot Country Overview
 #'
 #' This function analyzes the countries associated with publications
 #' from Scopus search results and provides various insights such as
@@ -61,11 +61,11 @@
 #' )
 #'
 #' # Example usage of the function with the sample data
-#' scopus_country_overview( res )
+#' plot_country_overview( res )
 #'
 #' @export
 
-scopus_country_overview <- function( res ) {
+plot_country_overview <- function( res ) {
 
   entries <- res$entries
 
@@ -94,8 +94,15 @@ scopus_country_overview <- function( res ) {
     dplyr::arrange( n ) |>
     dplyr::pull( country )
 
+  latest_year <- ifelse(
+    !is.null( res$meta_data ) && !is.null( res$meta_data$end_year ),
+    res$meta_data$end_year,
+    max( as.numeric( format( as.Date(
+      sapply( res$entries, function(x) x$`prism:coverDate` ) ), "%Y" ) ), na.rm = TRUE )
+  )
+
   data.tib <- data.tib |>
-    dplyr::mutate( year = ifelse( year <= 2015, "-2015", year )) |>
+    dplyr::mutate( year = ifelse( year <= latest_year-10, paste0( "-", latest_year-10 ), year )) |>
     dplyr::mutate( year = factor( year ) ) |>
     dplyr::mutate( country = ifelse( country %in% c(top_countries, "Unknown"), country, "Other")) |>
     dplyr::mutate( country = factor( country, levels = c( "Unknown", "Other", top_countries )))

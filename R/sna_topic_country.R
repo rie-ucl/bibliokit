@@ -1,4 +1,4 @@
-#' Topic-Based Country Network Analysis
+#' Social Network Analysis - Topic-Country Relationship
 #'
 #' This function performs a network analysis based on topics (keywords) and countries
 #' from the given publication data. It visualizes the relationship between different
@@ -36,11 +36,11 @@
 #'   )
 #' )
 #'
-#' topic_country_network( res )
+#' sna_topic_country( res )
 #'
 #' @export
 
-topic_country_network <- function( res ) {
+sna_topic_country <- function( res ) {
 
   entries <- res$entries
 
@@ -78,11 +78,11 @@ topic_country_network <- function( res ) {
 
   topic_ranking <- topics_countries |>
     dplyr::count( topic ) |>
-    dplyr::arrange( desc(n) )
+    dplyr::arrange( dplyr::desc(n) )
 
   country_ranking <- topics_countries |>
     dplyr::count( country ) |>
-    dplyr::arrange( desc(n) )
+    dplyr::arrange( dplyr::desc(n) )
 
   top_countries <- country_ranking |> head(6)  |> dplyr::pull(country)
   top_topics    <- topic_ranking   |> head(10) |> dplyr::pull(topic)

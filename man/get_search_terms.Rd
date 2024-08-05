@@ -10,18 +10,18 @@ get_search_terms(res)
 \item{res}{A list containing Scopus search results, with a URL field in \code{get_statements}.}
 }
 \value{
-A list of search keywords extracted from the URL.
+A list containing the search keywords and other query parameters.
 }
 \description{
-This function extracts search keywords from the provided Scopus search URL
+This function extracts search keywords and other query parameters from the provided Scopus search URL
 within the \code{res} object. The URL is obtained from \code{res$get_statements$url}.
 }
 \examples{
 res <- list(
   get_statements = list(
-    url = "https://api.elsevier.com/content/search/scopus?query=TITLE-ABS-KEY\%20\%28\%22artificial\%20intelligence\%22\%20AND\%20\%22national\%20security\%22\%20OR\%20\%22machine\%20learning\%22\%29"
+    url = "https://api.elsevier.com/content/search/scopus?query=TITLE-ABS-KEY\%20\%28\%20\%22oryza\%20sativa\%22\%20\%29\%20\%20AND\%20PUBYEAR\%20\%3D\%202014&count=25&start=0&view=COMPLETE"
   )
 )
-#' get_search_terms( res )
+get_search_terms(res)
 
 }

@@ -36,14 +36,14 @@
 #' )
 #'
 #' # Generate a ranking of the top 20 countries
-#' rank_affil( res )
+#' rank_affiliations( res )
 #'
 #' # Generate a ranking of the top 20 cities
-#' rank_affil( res, n = 20, type = "city")
+#' rank_affiliations( res, n = 20, type = "city")
 #'
 #' @export
 
-rank_affil <- function( res, n = 20, type = "country" ) {
+rank_affiliations <- function( res, n = 20, type = "country" ) {
 
   affils <- unlist( lapply( res$entries, function(e) {
       unlist( lapply( e$affiliation, function(a) {

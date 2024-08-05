@@ -19,6 +19,8 @@
 #'
 #' rank_keyword( res, abst = TRUE )
 #'
+#' @import utils
+#'
 #' @export
 
 rank_keyword <- function( res, n = 20, abst = FALSE ) {
@@ -43,7 +45,7 @@ rank_keyword <- function( res, n = 20, abst = FALSE ) {
 
   top_keywords <- tibble::tibble( keyword = keywords ) |>
     dplyr::count( keyword, sort = TRUE ) |>
-    head( n ) |>
+    utils::head( n ) |>
     dplyr::mutate( rank = dplyr::row_number(), .before = 1 )
 
   return( top_keywords )

@@ -1,4 +1,4 @@
-#' Create a Network of Country Co-occurrences
+#' Social Network Analysis - Network of Country Co-occurrences
 #'
 #' This function analyzes co-occurrence data between countries based on shared keywords
 #' and creates a network graph visualizing the relationships between countries.
@@ -48,12 +48,12 @@
 #' )
 #'
 #' # Create the network graph
-#' network_graph <- country_cooc_network( res )
+#' network_graph <- sna_countries( res )
 #' print( network_graph )
 #'
 #' @export
 
-country_cooc_network <- function( res ) {
+sna_countries <- function( res ) {
 
   topics_countries <- data.frame(
     topic = character(),
