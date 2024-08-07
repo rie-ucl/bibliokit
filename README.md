@@ -586,12 +586,14 @@ rank_sponsors(res, n = 20)
 
 ## scopus_10year_records.R
 
-Scopus 10 Year Records
+Scopus N Year Records
 
-This function retrieves bibliographic records from the Scopus API for the past 10 years.
+This function retrieves bibliographic records from the Scopus API for the past N years.
 
 ### Parameter
  terms A character vector of search terms (e.g., "machine learning" or c("machine learning", "algorithm")). These terms will be used to search for bibliographic records in the Scopus database.
+### Parameter
+ n A integer specifying the search period. The default is "10".
 ### Parameter
  search_type A character string specifying the search field. The default is "TITLE-ABS-KEY", which searches within titles, abstracts, and keywords. Other options can be specified as needed.
 ### Parameter
@@ -741,7 +743,7 @@ sna_topic_country( res )
  utils
 ```
 ### Imported libraries
- ggplot
+ ggplot2
 
 
 

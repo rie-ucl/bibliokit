@@ -1,8 +1,9 @@
-#' Scopus 10 Year Records
+#' Scopus N Year Records
 #'
-#' This function retrieves bibliographic records from the Scopus API for the past 10 years.
+#' This function retrieves bibliographic records from the Scopus API for the past N years.
 #'
 #' @param terms A character vector of search terms (e.g., "machine learning" or c("machine learning", "algorithm")). These terms will be used to search for bibliographic records in the Scopus database.
+#' @param n A integer specifying the search period. The default is "10".
 #' @param search_type A character string specifying the search field. The default is "TITLE-ABS-KEY", which searches within titles, abstracts, and keywords. Other options can be specified as needed.
 #' @param other_fields A character vector of additional search fields to include in the query.
 #'                     Each entry should be a string representing a field condition, such as "AND AUTHOR-NAME(smith)".
@@ -25,7 +26,7 @@
 #' @import rscopus
 #' @export
 
-scopus_10year_records <- function(terms, search_type = "TITLE-ABS-KEY", other_fields = "", save_dir = "bibdata" ) {
+scopus_10year_records <- function(terms, n = 10, search_type = "TITLE-ABS-KEY", other_fields = "", save_dir = "bibdata" ) {
 
   allowed_search_types <- c(
     "ALL",
@@ -112,7 +113,7 @@ scopus_10year_records <- function(terms, search_type = "TITLE-ABS-KEY", other_fi
 
   combined_entries <- list()
 
-  for ( y in seq( current_year, current_year-10 ) ) {
+  for ( y in seq( current_year, current_year - n ) ) {
     year_query <- paste( base_query, "AND PUBYEAR =", y )
     total_results <- get_total_results( year_query )
 
@@ -151,7 +152,7 @@ scopus_10year_records <- function(terms, search_type = "TITLE-ABS-KEY", other_fi
       search_type = search_type,
       terms = list( terms ),
       query = base_query,
-      start_year = current_year - 10,
+      start_year = current_year - n,
       end_year = current_year,
       search_time = Sys.time(),
       total_results = length(combined_entries)

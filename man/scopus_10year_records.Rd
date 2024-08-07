@@ -2,10 +2,11 @@
 % Please edit documentation in R/scopus_10year_records.R
 \name{scopus_10year_records}
 \alias{scopus_10year_records}
-\title{Scopus 10 Year Records}
+\title{Scopus N Year Records}
 \usage{
 scopus_10year_records(
   terms,
+  n = 10,
   search_type = "TITLE-ABS-KEY",
   other_fields = "",
   save_dir = "bibdata"
@@ -13,6 +14,8 @@ scopus_10year_records(
 }
 \arguments{
 \item{terms}{A character vector of search terms (e.g., "machine learning" or c("machine learning", "algorithm")). These terms will be used to search for bibliographic records in the Scopus database.}
+
+\item{n}{A integer specifying the search period. The default is "10".}
 
 \item{search_type}{A character string specifying the search field. The default is "TITLE-ABS-KEY", which searches within titles, abstracts, and keywords. Other options can be specified as needed.}
 
@@ -28,7 +31,7 @@ If the directory does not exist, it will be created. Default is "bibdata".}
 A data frame containing bibliographic records for the past 10 years. The data frame includes various fields such as titles, authors, and other relevant metadata from the Scopus database. The specific columns in the data frame may vary depending on the search results.
 }
 \description{
-This function retrieves bibliographic records from the Scopus API for the past 10 years.
+This function retrieves bibliographic records from the Scopus API for the past N years.
 }
 \examples{
 # Example 1: Search for records related to "machine learning"
