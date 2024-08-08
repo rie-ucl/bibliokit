@@ -27,5 +27,6 @@ Imports:
   ggrepel (>= 0.9.5),
   igraph (>= 2.0.3),
   ggraph (>= 2.2.0),
+  purrr (>= 1.0.2),
   rscopus (>= 0.7.2),
   litsearchr (>= 1.0.0)

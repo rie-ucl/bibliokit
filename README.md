@@ -18,6 +18,7 @@
 -  ggrepel (>= 0.9.5)
 -  igraph (>= 2.0.3)
 -  ggraph (>= 2.2.0)
+-  purrr (>= 1.0.2)
 -  rscopus (>= 0.7.2)
 -  litsearchr (>= 1.0.0)
 
@@ -102,6 +103,81 @@ get_search_terms(res)
 
 
 
+## plot_authnum_trend.R
+
+Plot Author Number Trend
+
+This function analyzes the annual publication trends based on the number of authors
+from Scopus search results, providing insights into how research collaboration
+has changed over time according to the number of contributing authors.
+
+### Parameter
+ res Scopus search results, including `entries`, which is a list of publication details.
+Each entry should have the fields `dc:title` and `author`, where `author` is a list of authors.
+### Parameter
+ type A string specifying the type of plot. Options are "line" (default), "stack", and "ratio".
+"line" produces a line plot, "stack" produces a stacked area plot, and "ratio" produces a 100% stacked area plot.
+### Returned value
+ A ggplot2 object showing the trend analysis results over the years for each author number category.
+### Example usage of the function with the sample data
+```r
+
+# Create a sample `res` list to simulate Scopus API search results
+res <- list(
+entries = list(
+list(
+`dc:title` = "A Study on Data Analysis",
+`prism:coverDate` = "2022-12-31",
+author = list(
+list( `authname` = "Author 1" ),
+list( `authname` = "Author 2" )
+)
+),
+list(
+`dc:title` = "Advances in Machine Learning",
+`prism:coverDate` = "2021-11-30",
+author = list(
+list( `authname` = "Author 1" ),
+list( `authname` = "Author 2" ),
+list( `authname` = "Author 3" ),
+list( `authname` = "Author 4" ),
+list( `authname` = "Author 5" )
+)
+),
+list(
+`dc:title` = "Research in Quantum Computing",
+`prism:coverDate` = "2020-10-15",
+author = list(
+list( `authname` = "Author 1" )
+)
+)
+)
+)
+
+# Example usage of the function with the sample data
+plot_authnum_trend( res, type = "stack" )
+
+```
+### Imported libraries
+ utils
+```
+### Imported libraries
+ ggplot2
+```
+### Imported libraries
+ dplyr
+```
+### Imported libraries
+ tidyr
+```
+### Imported libraries
+ ggrepel
+```
+### Imported libraries
+ tools
+
+
+
 ## plot_country_overview.R
 
 Plot Country Overview
@@ -179,6 +255,41 @@ plot_country_overview( res )
  dplyr
 
 
+
+
+## plot_country_pairs_collaboration_ratio.R
+
+No description available.
+
+
+## plot_country_pairs_trend.R
+
+Plot the trend of top country pairs by publication year, optionally filtering for a specific country
+
+This function analyzes and visualizes the trend of the most common country pairs in publications over time.
+It can also filter the pairs to include only those involving a specific country.
+
+### Parameter
+ res List structure containing publication data
+### Parameter
+ n Number of top country pairs to plot (default is 5)
+### Parameter
+ target_country Optional; specific country to filter the pairs by (default is NULL)
+### Returned value
+ A plot object showing the trend of top country pairs by publication year
+
+```
+### Imported libraries
+ dplyr
+```
+### Imported libraries
+ ggplot2
+```
+### Imported libraries
+ purrr
+```
+### Imported libraries
+ tidyr
 
 
 ## plot_country_trend.R

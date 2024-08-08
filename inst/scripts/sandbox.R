@@ -1,4 +1,15 @@
+res$entries <- lapply(res$entries, function(entry) {
+  if (!is.null(entry$`prism:aggregationType`) && entry$`prism:aggregationType` == "Journal") {
+    return(entry)
+  } else {
+    return(NULL)
+  }
+})
+res$entries <- res$entries[!sapply(res$entries, is.null)]
 
+
+
+#------------------------------------
 
 QUERY = 'TITLE-ABS-KEY ( "artificial intelligence" AND "national security" )'
 QUERY = 'TITLE-ABS-KEY ( "quantum computing" ) AND PUBYEAR = 2024'
@@ -16,7 +27,6 @@ FILEPATH = paste0( "../../research-dissertation/upgrade/literature_review/biblio
 save( res, file = FILEPATH )
 
 entries = res$entries
-
 
 
 library(httr)
