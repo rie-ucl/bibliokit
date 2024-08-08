@@ -1,5 +1,16 @@
 #' Generate a ranking of the top keywords used in the provided Scopus search results.
 #'
+#' The `rank_keywords()` function generates a ranking of the top keywords
+#' from the provided Scopus search results,
+#' based on the number of publications and total citations.
+#' By setting the `abst = TRUE` option, the function can include
+#' not only the keywords tagged by the authors
+#' but also the abstracts of the papers in the ranking.
+#' The output is a tibble with the following columns:
+#' `rank` rank of the keyword,
+#' `keyword` the keyword, and
+#' `n` number of publications with the keyword.
+#'
 #' @param res A list containing Scopus search results, including entries with `authkeywords` and `dc:description`.
 #' @param n An integer specifying the number of top keywords to return. Defaults to 20.
 #' @param abst A logical value indicating whether to include keywords from the abstracts. Default is `FALSE`.
@@ -17,13 +28,15 @@
 #'   )
 #' )
 #'
-#' rank_keyword( res, abst = TRUE )
+#' rank_keywords( res, abst = TRUE )
 #'
+#' @import dplyr
 #' @import utils
+#' @import litsearchr
 #'
 #' @export
 
-rank_keyword <- function( res, n = 20, abst = FALSE ) {
+rank_keywords <- function( res, n = 20, abst = FALSE ) {
 
   keywords <- unlist( lapply( res$entries, function( entry ) {
     if( !is.null( entry$authkeywords ) ) {

@@ -13,9 +13,9 @@ expand_search_terms(naive_terms)
 A character vector containing the original queries along with expanded search terms.
 }
 \description{
-This function takes one or more initial search terms and returns
-a query (expanded set of terms) by including related or similar terms.
-The expansion helps to capture more relevant results by broadening the search criteria.
+The \code{expand_search_terms()} function takes one or more initial search terms and
+returns a query (expanded set of terms) by including related or similar terms.
+The expansion helps to capture more relevant results by broadening the search.
 }
 \examples{
 expand_search_terms( c( "data analysis", "machine learning" ) )

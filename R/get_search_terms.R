@@ -32,7 +32,7 @@ get_search_terms <- function( res ) {
 
   for (query_type in query_types) {
     type_regex <- paste0(query_type, "\\(([^)]+)\\)")
-    type_matches <- regexpr( type_regex, query_decoded, perl=TRUE )
+    type_matches <- regexpr(type_regex, query_decoded, perl=TRUE)
 
     if (type_matches[1] != -1) {
       values_part <- regmatches(query_decoded, type_matches)

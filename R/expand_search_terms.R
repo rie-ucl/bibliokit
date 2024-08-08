@@ -1,8 +1,8 @@
 #' Expand Search Terms
 #'
-#' This function takes one or more initial search terms and returns
-#' a query (expanded set of terms) by including related or similar terms.
-#' The expansion helps to capture more relevant results by broadening the search criteria.
+#' The `expand_search_terms()` function takes one or more initial search terms and
+#' returns a query (expanded set of terms) by including related or similar terms.
+#' The expansion helps to capture more relevant results by broadening the search.
 #'
 #' @param naive_terms A character vector of one or more initial search queries.
 #' @return A character vector containing the original queries along with expanded search terms.
@@ -15,8 +15,9 @@
 
 expand_search_terms <- function( naive_terms ) {
 
-  QUERY = paste0( "TITLE-ABS-KEY (", paste0('"', naive_terms, '"', collapse = ' AND '), ")" )
-  # CTIME = format( Sys.time(), "%Y%m%d_%H%M" )
+  QUERY = paste0( "TITLE-ABS-KEY (",
+                  paste0('"', naive_terms, '"', collapse = ' AND '),
+                  ")" )
 
   res <- rscopus::scopus_search(
           query = QUERY,
@@ -27,8 +28,10 @@ expand_search_terms <- function( naive_terms ) {
 
   entries = res$entries
 
-  my_stopwords_path <- system.file( "extdata", "my_stopwords", package = "bibliokit" )
-  all_stopwords <- c( litsearchr::get_stopwords( "English" ), readr::read_lines( my_stopwords_path ) )
+  my_stopwords_path <- system.file( "extdata", "my_stopwords",
+                                    package = "bibliokit" )
+  all_stopwords <- c( litsearchr::get_stopwords( "English" ),
+                      readr::read_lines( my_stopwords_path ) )
 
   # keyword extraction
   naive_keywords <- unlist( lapply( entries, function(x) x$authkeywords ) )
@@ -58,24 +61,6 @@ expand_search_terms <- function( naive_terms ) {
   docs <- paste( naive_titles, naive_abstracts )
   dfm <- litsearchr::create_dfm( elements = docs, features = terms )
   g <- litsearchr::create_network( dfm, min_studies = 5 )
-
-  # ggraph( g, layout = "stress" ) +
-  #   coord_fixed() +
-  #   expand_limits( x = c( -3, 3 ) ) +
-  #   geom_edge_link( aes( alpha = weight ) ) +
-  #   geom_node_point( shape = "circle filled", fill = "white" ) +
-  #   geom_node_text( aes( label = name ), hjust = "outward", check_overlap = TRUE ) +
-  #   guides( edge_alpha = FALSE )
-
-  # strengths <- igraph::strength( g )
-
-  # term_strengths <- data.frame(
-  #   term = names( strengths ),
-  #   strength = strengths,
-  #   row.names = NULL
-  # ) |>
-  #   dplyr::mutate( rank = rank( strength, ties.method = "min" ) ) |>
-  #   dplyr::arrange( strength )
 
   cutoff_cum <- litsearchr::find_cutoff( g, method = "cumulative", percent = 0.8 )
 

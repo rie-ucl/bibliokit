@@ -1,14 +1,16 @@
 #' Rank Sponsors by Number of Publications and Citations
 #'
-#' This function ranks sponsors based on the number of publications and total citations.
+#' The `rank_sponsors()` function generates a ranking of the top sponsors
+#' from the provided Scopus search results,
+#' based on the number of publications and total citations.
 #' The output is a tibble with the following columns:
-#' - `rank`: Rank of the sponsor.
-#' - `sponsor`: Sponsor's name with abbreviation.
-#' - `n_publications`: Number of publications.
-#' - `n_citations`: Total number of citations.
-#' - `cite_per_pub`: Average number of citations per publication.
-#' - `countries_display`: Comma-separated list of countries where the sponsor is active.
-#' - `countries`: List of countries where the sponsor is active.
+#' `rank` rank of the sponsor,
+#' `sponsor` sponsor's name with abbreviation,
+#' `n_publications` number of publications,
+#' `n_citations` total number of citations,
+#' `cite_per_pub` average number of citations per publication,
+#' `countries_display` comma-separated list of countries where the sponsor is active, and
+#' `countries` list of countries where the sponsor is active.
 #'
 #' @param res A list containing Scopus search results.
 #' @param n An integer specifying the number of top sponsors to return. Defaults to 20.

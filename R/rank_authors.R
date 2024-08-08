@@ -1,13 +1,17 @@
 #' Rank Authors by Number of Publications and Citations
 #'
-#' This function ranks authors based on the number of publications and total citations.
+#' The `rank_authors()` function generates a ranking of the top authors
+#' from the provided Scopus search results,
+#' based on the number of publications and total citations.
+#' By setting the `include_all = TRUE` option, the function can include
+#' not only the first authors but also all authors of the publications in the ranking.
 #' The output is a tibble with the following columns:
-#' - `rank`: Rank of the author.
-#' - `name`: Author's name.
-#' - `n_publications`: Number of publications.
-#' - `n_citations`: Total number of citations.
-#' - `institution`: Author's primary institution.
-#' - `country`: Author's country.
+#' `rank` rank of the author,
+#' `name` author's name,
+#' `n_publications` number of publications,
+#' `n_citations` total number of citations,
+#' `institution` author's primary institution, and
+#' `country` author's country.
 #'
 #' @param res A list containing Scopus search results.
 #' @param n An integer specifying the number of top authors to return. Defaults to 20.

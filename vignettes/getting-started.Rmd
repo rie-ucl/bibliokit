@@ -1,0 +1,132 @@
+---
+title: "Getting Started with BiblioKit"
+author: "Rie Matsumoto, STEaPP, UCL"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with BiblioKit}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(stringr)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE
+)
+
+expanded_terms = c( "optimization", "quantum computing", "classical", "computer", "computers", "computing", "effect", "learning", "noisy", "performance", "process", "quantum", "quantum computer", "quantum computers", "qubit" )
+
+load( "../inst/extdata/sample_data_quantum.rda" )
+```
+
+```{r pull-text, include=FALSE}
+pull_text <- function( filename ) {
+  filepath = paste0("../R/", filename, ".R")
+  txt <- readLines( filepath )
+  txt <- gsub("^#'\\s*", "", txt )
+  sec <- unlist( strsplit( paste( txt, collapse = "\n"), "\n\n" ) )
+  return( sec[2] )
+}
+```
+
+## About the package
+
+```{r description, echo=FALSE}
+description <- stringr::str_extract( paste( readLines( "../DESCRIPTION" ), collapse = " " ), "(?<=Description: ).*?(?= License:)" )
+```
+
+`r description`
+
+## Setup
+
+`r pull_text("have_api_key")`
+
+When you have a Scopus API key, please load BiblioKit library!
+
+```{r library setup}
+library( bibliokit )
+```
+
+## Search
+
+`r pull_text("expand_search_terms")`
+
+```{r identify-search-terms, eval=FALSE}
+expanded_terms <- bibliokit::expand_search_terms( "quantum computer" )
+```
+
+By using this function with the naive search term `quantum computer`, you can obtain the following terms, which can be used for your search.
+
+```{r expanded-terms}
+expanded_terms
+```
+
+You can pick up some related terms for your final search terms.
+If you would like to make structured search query, you can use functions of `litsearchr` library. 
+
+Then you can conduct the search for your final term.
+`r pull_text("download_scopus_data")`
+
+```{r conduct-scopus-search, eval=FALSE}
+res <- bibliokit::download_scopus_data( c("quantum computer", "quantum computing" ), n = 10 )
+```
+
+This function returns a data frame containing bibliographic records for the past 10 years (or n years, if you specify). The results will be stored as the file `bibdata/rscopus-<date>-<terms>.rda`.
+
+```{r res}
+summary( res )
+```
+
+The list `res$entries` contains the bibliographical data or yielded articles. It includes the article title, the journal name, details on authors and affiliations, and other information.
+
+
+```{r res-entries}
+names( res$entries[[1]] )
+```
+
+## Rankings
+
+Now that you have your own data, you can analyse it with various functions.
+
+First of all, you can generate basic rankings from the obtained data. 
+Here you can see the example using the search result of `quantum computer`.
+
+### Keywords
+
+`r pull_text("rank_keywords")`
+```{r rank-keywords}
+bibliokit::rank_keywords( res, n = 5 )
+```
+
+### Authors
+
+`r pull_text("rank_authors")`
+```{r rank-authors}
+bibliokit::rank_authors( res, n = 5 )
+bibliokit::rank_authors( res, n = 5, include_all = TRUE )
+```
+
+### Affiliations
+
+`r pull_text("rank_affiliations")`
+```{r rank-affiliations}
+bibliokit::rank_affiliations( res, n = 5 )
+bibliokit::rank_affiliations( res, n = 5, type = "city" )
+bibliokit::rank_affiliations( res, n = 5, type = "institution" )
+```
+
+### Sponsors
+
+`r pull_text("rank_sponsors")`
+```{r rank-sponsors}
+bibliokit::rank_sponsors( res, n = 5 )
+```
+
+
+
+
+
+

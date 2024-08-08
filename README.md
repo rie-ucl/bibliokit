@@ -2,7 +2,7 @@
 
 ## DESCRIPTION
 
-   This package offers tools for analyzing and visualizing bibliometric data    from academic literature. It includes functions for extracting and processing    citation data, generating keyword co-occurrence networks, and producing author    and publication statistics. The package aims to assist researchers in    exploring trends and patterns in scientific publications.
+This package offers tools for analyzing and visualizing bibliometric data from academic literature. It includes functions for extracting and processing citation data, generating keyword co-occurrence networks, and producing authorand publication statistics. The package aims to assist researchers in exploring trends and patterns in scientific publications.
 
 - License: GPL-3
 - Encoding: UTF-8
@@ -20,15 +20,58 @@
 -  ggraph (>= 2.2.0)
 -  purrr (>= 1.0.2)
 -  rscopus (>= 0.7.2)
--  litsearchr (>= 1.0.0)
+-  litsearchr (>= 1.0.0) Suggests:      knitr
+-  rmarkdown VignetteBuilder: knitr
+
+## download_scopus_data.R
+
+Download Scopus Data
+
+The download_scopus_data() function retrieves bibliographic records from
+the Scopus API for the past N years.
+
+### Parameter
+ terms A character vector of search terms (e.g., "machine learning" or c("machine learning", "algorithm")). These terms will be used to search for bibliographic records in the Scopus database.
+### Parameter
+ n A integer specifying the search period. The default is "10".
+### Parameter
+ search_type A character string specifying the search field. The default is "TITLE-ABS-KEY", which searches within titles, abstracts, and keywords. Other options can be specified as needed.
+### Parameter
+ other_fields A character vector of additional search fields to include in the query.
+Each entry should be a string representing a field condition, such as "AND AUTHOR-NAME(smith)".
+These will be appended to the base query. Default is an empty string (""), meaning no additional fields.
+Example: c("AND AUTHOR-NAME(smith)", "AND AFFILORG(University)").
+### Parameter
+ save_dir A string specifying the directory where the results file will be saved.
+If the directory does not exist, it will be created. Default is "bibdata".
+
+### Returned value
+ A data frame containing bibliographic records for the past 10 years (or n years, if you specify). The data frame includes various fields such as titles, authors, and other relevant metadata from the Scopus database. The specific columns in the data frame may vary depending on the search results.
+
+### Example usage of the function with the sample data
+```r
+
+# Example 1: Search for records related to "machine learning"
+entries <- download_scopus_data( "journalist robot", search_type = "TITLE" )
+
+# Example 2: Search for records related to multiple terms
+terms <- c("machine learning", "algorithm")
+entries <- download_scopus_data( terms, other_fields = "AND AUTHOR-NAME(matsumoto)" )
+head(entries)
+
+```
+### Imported libraries
+ rscopus
+
+
 
 ## expand_search_terms.R
 
 Expand Search Terms
 
-This function takes one or more initial search terms and returns
-a query (expanded set of terms) by including related or similar terms.
-The expansion helps to capture more relevant results by broadening the search criteria.
+The `expand_search_terms()` function takes one or more initial search terms and
+returns a query (expanded set of terms) by including related or similar terms.
+The expansion helps to capture more relevant results by broadening the search.
 
 ### Parameter
  naive_terms A character vector of one or more initial search queries.
@@ -99,6 +142,33 @@ get_search_terms(res)
 ```
 ### Imported libraries
  utils
+
+
+
+
+## have_api_key.R
+
+Check Scopus API Key
+
+To use the Bibliokit library, you need a Scopus API account.
+If you have not set up your API key yet, you need to sign up
+your Scopus API account and set it up for your device.
+Follow the instruction of `rscopus` library.
+By using have_apr_key() function (a simple wrapper of the
+same-name function of `rscopus` library), you can check
+if you already have a proper API key.
+
+### Returned value
+ A logical vector.
+
+### Example usage of the function with the sample data
+```r
+
+have_api_key()
+
+```
+### Imported libraries
+ rscopus
 
 
 
@@ -502,7 +572,7 @@ plot_sponsor_trend( res )
 
 
 
-## rank_affilations.R
+## rank_affiliations.R
 
 Generate a ranking of the top affiliation used in the provided Scopus search results.
 
@@ -555,7 +625,13 @@ rank_affiliations( res, n = 20, type = "city")
 
 ```
 ### Imported libraries
+ tibble
+```
+### Imported libraries
  dplyr
+```
+### Imported libraries
+ utils
 
 
 
@@ -641,11 +717,17 @@ list( authkeywords = "machine learning | data mining",
 )
 )
 
-rank_keyword( res, abst = TRUE )
+rank_keywords( res, abst = TRUE )
 
 ```
 ### Imported libraries
+ dplyr
+```
+### Imported libraries
  utils
+```
+### Imported libraries
+ litsearchr
 
 
 
@@ -692,47 +774,6 @@ rank_sponsors(res, n = 20)
 ### Imported libraries
  utils
 
-
-
-
-## scopus_10year_records.R
-
-Scopus N Year Records
-
-This function retrieves bibliographic records from the Scopus API for the past N years.
-
-### Parameter
- terms A character vector of search terms (e.g., "machine learning" or c("machine learning", "algorithm")). These terms will be used to search for bibliographic records in the Scopus database.
-### Parameter
- n A integer specifying the search period. The default is "10".
-### Parameter
- search_type A character string specifying the search field. The default is "TITLE-ABS-KEY", which searches within titles, abstracts, and keywords. Other options can be specified as needed.
-### Parameter
- other_fields A character vector of additional search fields to include in the query.
-Each entry should be a string representing a field condition, such as "AND AUTHOR-NAME(smith)".
-These will be appended to the base query. Default is an empty string (""), meaning no additional fields.
-Example: c("AND AUTHOR-NAME(smith)", "AND AFFILORG(University)").
-### Parameter
- save_dir A string specifying the directory where the results file will be saved.
-If the directory does not exist, it will be created. Default is "bibdata".
-
-### Returned value
- A data frame containing bibliographic records for the past 10 years. The data frame includes various fields such as titles, authors, and other relevant metadata from the Scopus database. The specific columns in the data frame may vary depending on the search results.
-
-### Example usage of the function with the sample data
-```r
-
-# Example 1: Search for records related to "machine learning"
-entries <- scopus_10year_records( "journalist robot", search_type = "TITLE" )
-
-# Example 2: Search for records related to multiple terms
-terms <- c("machine learning", "algorithm")
-entries <- scopus_10year_records( terms, other_fields = "AND AUTHOR-NAME(matsumoto)" )
-head(entries)
-
-```
-### Imported libraries
- rscopus
 
 
 

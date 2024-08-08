@@ -17,8 +17,7 @@
 #'
 #' @export
 
-get_search_query <- function( res ) {
-
+get_search_query <- function(res) {
   url <- res$get_statements$url
 
   parsed_url <- httr::parse_url(url)

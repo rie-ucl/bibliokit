@@ -2,10 +2,16 @@ library(usethis)
 library(roxygen2)
 library(devtools)
 
+setwd("C:/Users/Rie/OneDrive - University College London/R/packages/bibliokit/")
+file.remove("NAMESPACE")
 source("inst/scripts/generate_readme.R")
 document()
 build()
 check()
+
+detach( "package:bibliokit", unload = TRUE )
+install.packages("../bibliokit_0.1.0.tar.gz")
+library( bibliokit )
 
 # test_dir("tests/testthat")
 

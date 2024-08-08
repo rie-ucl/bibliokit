@@ -6,12 +6,7 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Author: Rie Matsumoto
 Maintainer: Rie Matsumoto <rie.hayashi.22@ucl.ac.uk>
-Description: 
-  This package offers tools for analyzing and visualizing bibliometric data 
-  from academic literature. It includes functions for extracting and processing 
-  citation data, generating keyword co-occurrence networks, and producing author 
-  and publication statistics. The package aims to assist researchers in 
-  exploring trends and patterns in scientific publications.
+Description: This package offers tools for analyzing and visualizing bibliometric data from academic literature. It includes functions for extracting and processing citation data, generating keyword co-occurrence networks, and producing authorand publication statistics. The package aims to assist researchers in exploring trends and patterns in scientific publications.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -30,3 +25,7 @@ Imports:
   purrr (>= 1.0.2),
   rscopus (>= 0.7.2),
   litsearchr (>= 1.0.0)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
