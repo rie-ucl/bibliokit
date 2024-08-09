@@ -20,7 +20,16 @@ A tibble with columns
 \code{n} (integer, occurrence count).
 }
 \description{
-Generate a ranking of the top keywords used in the provided Scopus search results.
+The \code{rank_keywords()} function generates a ranking of the top keywords
+from the provided Scopus search results,
+based on the number of publications and total citations.
+By setting the \code{abst = TRUE} option, the function can include
+not only the keywords tagged by the authors
+but also the abstracts of the papers in the ranking.
+The output is a tibble with the following columns:
+\code{rank} rank of the keyword,
+\code{keyword} the keyword, and
+\code{n} number of publications with the keyword.
 }
 \examples{
 res <- list(

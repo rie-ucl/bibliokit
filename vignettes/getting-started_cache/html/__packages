@@ -1,3 +1,6 @@
 stringr
 bibliokit
 rscopus
+usethis
+roxygen2
+devtools

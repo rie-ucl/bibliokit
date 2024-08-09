@@ -17,9 +17,10 @@ Each entry should have the fields \code{dc:title} and \code{author}, where \code
 A ggplot2 object showing the trend analysis results over the years for each author number category.
 }
 \description{
-This function analyzes the annual publication trends based on the number of authors
-from Scopus search results, providing insights into how research collaboration
-has changed over time according to the number of contributing authors.
+The \code{plot_authnum_trend()} function analyses and visualizes
+the annual publication trends for the number of authors
+from Scopus search results.
+You can specify \code{type} of the output from \code{line}, \code{stack} and \code{ratio}.
 }
 \examples{
 # Create a sample `res` list to simulate Scopus API search results

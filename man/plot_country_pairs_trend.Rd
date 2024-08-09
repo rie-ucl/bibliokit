@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_country_pairs_trend.R
 \name{plot_country_pairs_trend}
 \alias{plot_country_pairs_trend}
-\title{Plot the trend of top country pairs by publication year, optionally filtering for a specific country}
+\title{Plot Country Pairs Trend}
 \usage{
 plot_country_pairs_trend(res, n = 5, target_country = NULL)
 }
@@ -17,6 +17,8 @@ plot_country_pairs_trend(res, n = 5, target_country = NULL)
 A plot object showing the trend of top country pairs by publication year
 }
 \description{
-This function analyzes and visualizes the trend of the most common country pairs in publications over time.
-It can also filter the pairs to include only those involving a specific country.
+The \code{plot_country_pairs_trend()} function analyses and visualizes
+the annual publication trends for country pairs
+from Scopus search results.
+You can filter the result with a target country by specifying \code{target_country}.
 }

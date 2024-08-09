@@ -14,9 +14,8 @@ Each entry should have the fields \code{dc:title}, \code{prism:coverDate}, and \
 A ggplot2 object showing the analysis results.
 }
 \description{
-This function analyzes the sponsors associated with publications
-from Scopus search results and provides various insights such as
-sponsor rankings, global share, and trends over years.
+The \code{plot_sponsor_overview()} function analyses and visualise
+the sponsors from Scopus search results..
 }
 \examples{
 # Create a sample `res` list to simulate Scopus API search results

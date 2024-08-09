@@ -1,3 +1,22 @@
+#' Plot Country Pairs Collaboration Ratio
+#'
+#' The `plot_country_pairs_collaboration_ratio()` function analyses and visualizes
+#' the annual publication trends for country pairs with their collaboration ratio
+#' from Scopus search results.
+#' You can filter the result with a target country by specifying `target_country`
+#' and choose the `type` of the output from `line` or `stack`.
+#'
+#' @param res List structure containing publication data
+#' @param n Number of top country pairs to plot (default is 5)
+#' @param target_country Optional; specific country to filter the pairs by (default is NULL)
+#' @param type Type of a graph
+#' @return A plot object showing the trend of top country pairs by publication year
+#' @export
+#' @import dplyr
+#' @import ggplot2
+#' @import purrr
+#' @import tidyr
+
 plot_country_pairs_collaboration_ratio <- function(res, n = 5, target_country = NULL, type = "line") {
   country_pairs <- purrr::map_df(res$entries, function(entry) {
     countries <- entry$affiliation |>

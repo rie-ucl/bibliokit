@@ -5,8 +5,10 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting Started with BiblioKit}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -14,12 +16,15 @@ library(stringr)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  cache = TRUE
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 3.5
+  # cache = TRUE
 )
 
 expanded_terms = c( "optimization", "quantum computing", "classical", "computer", "computers", "computing", "effect", "learning", "noisy", "performance", "process", "quantum", "quantum computer", "quantum computers", "qubit" )
 
-load( "../inst/extdata/sample_data_quantum.rda" )
+load( "../inst/extdata/sample_data.rda" )
 ```
 
 ```{r pull-text, include=FALSE}
@@ -87,12 +92,12 @@ The list `res$entries` contains the bibliographical data or yielded articles. It
 names( res$entries[[1]] )
 ```
 
-## Rankings
+## Basic Rankings
 
 Now that you have your own data, you can analyse it with various functions.
 
 First of all, you can generate basic rankings from the obtained data. 
-Here you can see the example using the search result of `quantum computer`.
+Here you can see the example using the search result of`chopin`, as the data size obtained from `quantum computer` is too big. If you are interested in, you can check the result by using this library!
 
 ### Keywords
 
@@ -124,6 +129,64 @@ bibliokit::rank_affiliations( res, n = 5, type = "institution" )
 ```{r rank-sponsors}
 bibliokit::rank_sponsors( res, n = 5 )
 ```
+
+
+## Data Visualisation
+
+### Countries
+
+`r pull_text("plot_country_overview")`
+```{r plot-country-overview}
+bibliokit::plot_country_overview( res )
+```
+
+`r pull_text("plot_country_trend")`
+```{r plot-country-trend}
+bibliokit::plot_country_trend( res )
+```
+
+### Sponsors
+
+`r pull_text("plot_sponsor_overview")`
+```{r plot-sponsor-overview}
+bibliokit::plot_sponsor_overview( res )
+```
+
+`r pull_text("plot_sponsor_trend")`
+```{r plot-sponsor-trend}
+bibliokit::plot_sponsor_trend( res )
+```
+
+### Author Numbers
+
+`r pull_text("plot_authnum_trend")`
+```{r plot-authnum-trend}
+bibliokit::plot_authnum_trend( res )
+```
+
+### Country Pairs
+
+`r pull_text("plot_country_pairs_trend")`
+```{r plot-country-pairs-trend}
+bibliokit::plot_country_pairs_trend( res )
+```
+
+## Social Network Analysis
+
+`r pull_text("sna_topic_country")`
+```{r sna-topic-country}
+bibliokit::sna_topic_country( res )
+```
+
+`r pull_text("sna_countries")`
+```{r sna-countries}
+bibliokit::sna_countries( res )
+```
+
+
+
+
+
 
 
 

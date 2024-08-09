@@ -17,16 +17,18 @@ rank_authors(res, n = 20, include_all = FALSE)
 A tibble with the ranking of authors.
 }
 \description{
-This function ranks authors based on the number of publications and total citations.
+The \code{rank_authors()} function generates a ranking of the top authors
+from the provided Scopus search results,
+based on the number of publications and total citations.
+By setting the \code{include_all = TRUE} option, the function can include
+not only the first authors but also all authors of the publications in the ranking.
 The output is a tibble with the following columns:
-\itemize{
-\item \code{rank}: Rank of the author.
-\item \code{name}: Author's name.
-\item \code{n_publications}: Number of publications.
-\item \code{n_citations}: Total number of citations.
-\item \code{institution}: Author's primary institution.
-\item \code{country}: Author's country.
-}
+\code{rank} rank of the author,
+\code{name} author's name,
+\code{n_publications} number of publications,
+\code{n_citations} total number of citations,
+\code{institution} author's primary institution, and
+\code{country} author's country.
 }
 \examples{
 res <- list(

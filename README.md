@@ -177,9 +177,10 @@ have_api_key()
 
 Plot Author Number Trend
 
-This function analyzes the annual publication trends based on the number of authors
-from Scopus search results, providing insights into how research collaboration
-has changed over time according to the number of contributing authors.
+The `plot_authnum_trend()` function analyses and visualizes
+the annual publication trends for the number of authors
+from Scopus search results.
+You can specify `type` of the output from `line`, `stack` and `ratio`.
 
 ### Parameter
  res Scopus search results, including `entries`, which is a list of publication details.
@@ -252,9 +253,9 @@ plot_authnum_trend( res, type = "stack" )
 
 Plot Country Overview
 
-This function analyzes the countries associated with publications
-from Scopus search results and provides various insights such as
-country rankings, global share, and trends over years.
+The `plot_country_overview()` function analyses and visualise
+the countries associated with publications
+from Scopus search results.
 
 ### Parameter
  res Scopus search results, including `entries`, which is a list of publication details.
@@ -329,15 +330,47 @@ plot_country_overview( res )
 
 ## plot_country_pairs_collaboration_ratio.R
 
-No description available.
+Plot Country Pairs Collaboration Ratio
+
+The `plot_country_pairs_collaboration_ratio()` function analyses and visualizes
+the annual publication trends for country pairs with their collaboration ratio
+from Scopus search results.
+You can filter the result with a target country by specifying `target_country`
+and choose the `type` of the output from `line` or `stack`.
+
+### Parameter
+ res List structure containing publication data
+### Parameter
+ n Number of top country pairs to plot (default is 5)
+### Parameter
+ target_country Optional; specific country to filter the pairs by (default is NULL)
+### Parameter
+ type Type of a graph
+### Returned value
+ A plot object showing the trend of top country pairs by publication year
+
+```
+### Imported libraries
+ dplyr
+```
+### Imported libraries
+ ggplot2
+```
+### Imported libraries
+ purrr
+```
+### Imported libraries
+ tidyr
 
 
 ## plot_country_pairs_trend.R
 
-Plot the trend of top country pairs by publication year, optionally filtering for a specific country
+Plot Country Pairs Trend
 
-This function analyzes and visualizes the trend of the most common country pairs in publications over time.
-It can also filter the pairs to include only those involving a specific country.
+The `plot_country_pairs_trend()` function analyses and visualizes
+the annual publication trends for country pairs
+from Scopus search results.
+You can filter the result with a target country by specifying `target_country`.
 
 ### Parameter
  res List structure containing publication data
@@ -366,9 +399,9 @@ It can also filter the pairs to include only those involving a specific country.
 
 Plot Country Trend
 
-This function analyzes the annual publication trends for countries
-from Scopus search results, providing insights into how research output
-has changed over time for each country.
+The `plot_country_trend()` function analyses and visualizes
+the annual publication trends for countries
+from Scopus search results.
 
 ### Parameter
  res Scopus search results, including `entries`, which is a list of publication details.
@@ -444,9 +477,8 @@ plot_country_trend( res )
 
 Plot Sponsor Overview
 
-This function analyzes the sponsors associated with publications
-from Scopus search results and provides various insights such as
-sponsor rankings, global share, and trends over years.
+The `plot_sponsor_overview()` function analyses and visualise
+the sponsors from Scopus search results..
 
 ### Parameter
  res Scopus search results, including `entries`, which is a list of publication details.
@@ -506,9 +538,9 @@ plot_sponsor_overview( res )
 
 Plot Sponsor Trend
 
-This function analyzes the annual publication trends for sponsors
-from Scopus search results, providing insights into how research output
-has changed over time for each sponsor.
+The `plot_sponsor_trend()` function analyses and visualizes
+the annual publication trends for sponsors
+from Scopus search results.
 
 ### Parameter
  res Scopus search results, including `entries`, which is a list of publication details.
@@ -576,6 +608,16 @@ plot_sponsor_trend( res )
 
 Generate a ranking of the top affiliation used in the provided Scopus search results.
 
+The `rank_affiliations()` function generates a ranking of the top affiliations
+from the provided Scopus search results,
+based on the number of publications and total citations.
+By choosing the `type = "city"` or `type = "institution"` option,
+the function can provide the ranking of cities or institutions instead of countries.
+The output is a tibble with the following columns:
+`rank` rank of the affiliation,
+`country/city/institution` type of the affiliation, and
+`n` number of publications.
+
 ### Parameter
  res A list containing Scopus search results, including entries with `affiliation`.
 ### Parameter
@@ -640,14 +682,18 @@ rank_affiliations( res, n = 20, type = "city")
 
 Rank Authors by Number of Publications and Citations
 
-This function ranks authors based on the number of publications and total citations.
+The `rank_authors()` function generates a ranking of the top authors
+from the provided Scopus search results,
+based on the number of publications and total citations.
+By setting the `include_all = TRUE` option, the function can include
+not only the first authors but also all authors of the publications in the ranking.
 The output is a tibble with the following columns:
-- `rank`: Rank of the author.
-- `name`: Author's name.
-- `n_publications`: Number of publications.
-- `n_citations`: Total number of citations.
-- `institution`: Author's primary institution.
-- `country`: Author's country.
+`rank` rank of the author,
+`name` author's name,
+`n_publications` number of publications,
+`n_citations` total number of citations,
+`institution` author's primary institution, and
+`country` author's country.
 
 ### Parameter
  res A list containing Scopus search results.
@@ -694,6 +740,17 @@ rank_authors(res, n = 20, include_all = FALSE)
 
 Generate a ranking of the top keywords used in the provided Scopus search results.
 
+The `rank_keywords()` function generates a ranking of the top keywords
+from the provided Scopus search results,
+based on the number of publications and total citations.
+By setting the `abst = TRUE` option, the function can include
+not only the keywords tagged by the authors
+but also the abstracts of the papers in the ranking.
+The output is a tibble with the following columns:
+`rank` rank of the keyword,
+`keyword` the keyword, and
+`n` number of publications with the keyword.
+
 ### Parameter
  res A list containing Scopus search results, including entries with `authkeywords` and `dc:description`.
 ### Parameter
@@ -736,15 +793,17 @@ rank_keywords( res, abst = TRUE )
 
 Rank Sponsors by Number of Publications and Citations
 
-This function ranks sponsors based on the number of publications and total citations.
+The `rank_sponsors()` function generates a ranking of the top sponsors
+from the provided Scopus search results,
+based on the number of publications and total citations.
 The output is a tibble with the following columns:
-- `rank`: Rank of the sponsor.
-- `sponsor`: Sponsor's name with abbreviation.
-- `n_publications`: Number of publications.
-- `n_citations`: Total number of citations.
-- `cite_per_pub`: Average number of citations per publication.
-- `countries_display`: Comma-separated list of countries where the sponsor is active.
-- `countries`: List of countries where the sponsor is active.
+`rank` rank of the sponsor,
+`sponsor` sponsor's name with abbreviation,
+`n_publications` number of publications,
+`n_citations` total number of citations,
+`cite_per_pub` average number of citations per publication,
+`countries_display` comma-separated list of countries where the sponsor is active, and
+`countries` list of countries where the sponsor is active.
 
 ### Parameter
  res A list containing Scopus search results.
@@ -781,7 +840,7 @@ rank_sponsors(res, n = 20)
 
 Social Network Analysis - Network of Country Co-occurrences
 
-This function analyzes co-occurrence data between countries based on shared keywords
+The `sna_countries()` function analyses co-occurrence data between countries based on shared keywords
 and creates a network graph visualizing the relationships between countries.
 The network is constructed based on the frequency of shared keywords between countries.
 The resulting graph can help in understanding how countries are connected through common research topics.
@@ -845,7 +904,7 @@ print( network_graph )
 
 Social Network Analysis - Topic-Country Relationship
 
-This function performs a network analysis based on topics (keywords) and countries
+The `sna_topic_country()` function analyses a network analysis based on topics (keywords) and countries
 from the given publication data. It visualizes the relationship between different
 topics and the countries associated with those topics.
 

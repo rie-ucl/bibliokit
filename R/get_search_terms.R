@@ -19,30 +19,34 @@
 #' @export
 
 get_search_terms <- function( res ) {
-  url <- res$get_statements$url
 
-  query <- sub(".*query=", "", url)
-  query_decoded <- URLdecode( query )
+  query <- URLdecode( sub(".*query=", "", res$get_statements$url) )
 
-  terms <- list()
+  query_parts <- strsplit( query, "\\s*(AND|OR|&)(?=(?:[^()]*\\([^()]*\\))*[^()]*$)", perl=TRUE )
+  query_parts <- trimws( query_parts[[1]] )
 
-  query_parts <- unlist( strsplit( query_decoded, "\\s+(AND|OR)\\s+") )
+  terms <- tibble::tibble( type = character(), value = character() )
 
-  query_types <- unique( gsub("\\((.*)\\)", "", query_parts) )
-
-  for (query_type in query_types) {
-    type_regex <- paste0(query_type, "\\(([^)]+)\\)")
-    type_matches <- regexpr(type_regex, query_decoded, perl=TRUE)
-
-    if (type_matches[1] != -1) {
-      values_part <- regmatches(query_decoded, type_matches)
-      values_str <- sub(type_regex, "\\1", values_part)
-      values <- trimws(gsub('"', '', values_str))
-
-      values_split <- unlist(strsplit(values, "\\s+(AND|OR)\\s+"))
-      terms[[query_type]] <- trimws( values_split )
+  for ( query_part in query_parts ) {
+    if( grepl( "=", query_part ) ) {
+      split_part <- unlist( strsplit( query_part, "=", fixed = TRUE ) )
+      type <- trimws( split_part[1] )
+      value <- trimws( split_part[2] )
+    } else if ( grepl( "\\(", query_part ) ) {
+      type <- trimws( sub( "\\(.*$", "", query_part ) )
+      value <- trimws( gsub( "^.*\\(|\\)$", "", query_part ) )
+      value <- trimws( gsub( '\\"', '`', value ) )
+      if ( grepl( "AND|OR", value ) ) {
+        value <- strsplit( value, "\\s*(AND|OR)\\s*", perl=TRUE )[[1]]
+        value <- trimws( gsub( '\\"', '`', value ) )
+        value <- paste( value, collapse = ", " )
+      }
+    } else {
+      type <- trimws( query_part )
+      value <- TRUE
     }
+    terms <- tibble::add_row( terms, type = type, value = value )
   }
 
-  return(terms)
+  return( terms )
 }

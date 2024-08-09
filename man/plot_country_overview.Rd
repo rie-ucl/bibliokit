@@ -15,9 +15,9 @@ Each entry should have the fields \code{dc:title}, \code{prism:coverDate}, and \
 A ggplot2 object showing the analysis results.
 }
 \description{
-This function analyzes the countries associated with publications
-from Scopus search results and provides various insights such as
-country rankings, global share, and trends over years.
+The \code{plot_country_overview()} function analyses and visualise
+the countries associated with publications
+from Scopus search results.
 }
 \examples{
 res = list(

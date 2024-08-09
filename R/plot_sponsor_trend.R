@@ -1,8 +1,8 @@
 #' Plot Sponsor Trend
 #'
-#' This function analyzes the annual publication trends for sponsors
-#' from Scopus search results, providing insights into how research output
-#' has changed over time for each sponsor.
+#' The `plot_sponsor_trend()` function analyses and visualizes
+#' the annual publication trends for sponsors
+#' from Scopus search results.
 #'
 #' @param res Scopus search results, including `entries`, which is a list of publication details.
 #'   Each entry should have the fields `dc:title`, `prism:coverDate`, and `fund-sponsor` (with `fund-acr` for abbreviation).

@@ -15,17 +15,17 @@ rank_sponsors(res, n = 10)
 A tibble with the ranking of sponsors.
 }
 \description{
-This function ranks sponsors based on the number of publications and total citations.
+The \code{rank_sponsors()} function generates a ranking of the top sponsors
+from the provided Scopus search results,
+based on the number of publications and total citations.
 The output is a tibble with the following columns:
-\itemize{
-\item \code{rank}: Rank of the sponsor.
-\item \code{sponsor}: Sponsor's name with abbreviation.
-\item \code{n_publications}: Number of publications.
-\item \code{n_citations}: Total number of citations.
-\item \code{cite_per_pub}: Average number of citations per publication.
-\item \code{countries_display}: Comma-separated list of countries where the sponsor is active.
-\item \code{countries}: List of countries where the sponsor is active.
-}
+\code{rank} rank of the sponsor,
+\code{sponsor} sponsor's name with abbreviation,
+\code{n_publications} number of publications,
+\code{n_citations} total number of citations,
+\code{cite_per_pub} average number of citations per publication,
+\code{countries_display} comma-separated list of countries where the sponsor is active, and
+\code{countries} list of countries where the sponsor is active.
 }
 \examples{
 res <- list(

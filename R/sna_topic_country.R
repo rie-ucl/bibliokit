@@ -1,6 +1,6 @@
 #' Social Network Analysis - Topic-Country Relationship
 #'
-#' This function performs a network analysis based on topics (keywords) and countries
+#' The `sna_topic_country()` function analyses a network analysis based on topics (keywords) and countries
 #' from the given publication data. It visualizes the relationship between different
 #' topics and the countries associated with those topics.
 #'
@@ -59,8 +59,8 @@ sna_topic_country <- function( res ) {
       keywords <- unlist( strsplit( entry$authkeywords, "\\|") )
       keywords <- tolower( trimws( keywords ) )
 
-      countries <- unique( sapply( entry$affiliation, function(x) x$`affiliation-country` ) )
-      countries <- countries[!is.na(countries) & countries != ""]
+      countries <- sapply( entry$affiliation, function(x) x$`affiliation-country` )
+      countries <- unique( unlist( countries ) )
 
       if ( length( countries ) > 0 && length( keywords ) > 0) {
         for ( keyword in keywords ) {

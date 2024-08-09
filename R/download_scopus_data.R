@@ -29,7 +29,7 @@
 
 download_scopus_data <- function(terms, n = 10, search_type = "TITLE-ABS-KEY", other_fields = "", save_dir = "bibdata" ) {
 
-  allowed_search_types <- c(
+  search_types <- c(
     "ALL",
     "ABS",
     "AF-ID",
@@ -99,7 +99,7 @@ download_scopus_data <- function(terms, n = 10, search_type = "TITLE-ABS-KEY", o
     "WEBSITE"
   )
 
-  if ( !search_type %in% allowed_search_types ) {
+  if ( !search_type %in% search_types ) {
     stop( paste("Invalid search type:", search_type ) )
   }
 

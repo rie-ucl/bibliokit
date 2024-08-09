@@ -20,7 +20,15 @@ A tibble with columns
 \code{n} (integer, occurrence count).
 }
 \description{
-Generate a ranking of the top affiliation used in the provided Scopus search results.
+The \code{rank_affiliations()} function generates a ranking of the top affiliations
+from the provided Scopus search results,
+based on the number of publications and total citations.
+By choosing the \code{type = "city"} or \code{type = "institution"} option,
+the function can provide the ranking of cities or institutions instead of countries.
+The output is a tibble with the following columns:
+\code{rank} rank of the affiliation,
+\code{country/city/institution} type of the affiliation, and
+\code{n} number of publications.
 }
 \examples{
 # Load a sample Scopus search result object (res)

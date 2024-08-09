@@ -15,9 +15,9 @@ Each entry should have the fields \code{dc:title}, \code{prism:coverDate}, and \
 A ggplot2 object showing the trend analysis results over the years for each country.
 }
 \description{
-This function analyzes the annual publication trends for countries
-from Scopus search results, providing insights into how research output
-has changed over time for each country.
+The \code{plot_country_trend()} function analyses and visualizes
+the annual publication trends for countries
+from Scopus search results.
 }
 \examples{
 # Create a sample `res` list to simulate Scopus API search results

@@ -26,7 +26,7 @@ as edges between these nodes. Nodes are sized according to their importance in t
 are colored based on their weight.
 }
 \description{
-This function analyzes co-occurrence data between countries based on shared keywords
+The \code{sna_countries()} function analyses co-occurrence data between countries based on shared keywords
 and creates a network graph visualizing the relationships between countries.
 The network is constructed based on the frequency of shared keywords between countries.
 The resulting graph can help in understanding how countries are connected through common research topics.

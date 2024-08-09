@@ -1,7 +1,9 @@
-#' Plot the trend of top country pairs by publication year, optionally filtering for a specific country
+#' Plot Country Pairs Trend
 #'
-#' This function analyzes and visualizes the trend of the most common country pairs in publications over time.
-#' It can also filter the pairs to include only those involving a specific country.
+#' The `plot_country_pairs_trend()` function analyses and visualizes
+#' the annual publication trends for country pairs
+#' from Scopus search results.
+#' You can filter the result with a target country by specifying `target_country`.
 #'
 #' @param res List structure containing publication data
 #' @param n Number of top country pairs to plot (default is 5)

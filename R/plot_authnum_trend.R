@@ -1,8 +1,9 @@
 #' Plot Author Number Trend
 #'
-#' This function analyzes the annual publication trends based on the number of authors
-#' from Scopus search results, providing insights into how research collaboration
-#' has changed over time according to the number of contributing authors.
+#' The `plot_authnum_trend()` function analyses and visualizes
+#' the annual publication trends for the number of authors
+#' from Scopus search results.
+#' You can specify `type` of the output from `line`, `stack` and `ratio`.
 #'
 #' @param res Scopus search results, including `entries`, which is a list of publication details.
 #'   Each entry should have the fields `dc:title` and `author`, where `author` is a list of authors.
@@ -94,12 +95,6 @@ plot_authnum_trend <- function( res, type = "line" ) {
       )
     )
 
-  title <- tools::toTitleCase( paste(
-    "Trends in Publications by Author Count (",
-    bibliokit::get_search_terms( res ), ")" ) )
-  if ( type == "stack" ) title <- paste( "Stacked", title )
-  if ( type == "ratio" ) title <- paste( "Propotional", title )
-
   # Modify the plot based on the type
   if ( type == "line" ) {
     g <- g +
@@ -122,8 +117,7 @@ plot_authnum_trend <- function( res, type = "line" ) {
       panel.grid.major = ggplot2::element_line( colour = "WhiteSmoke" ),
       axis.ticks = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_text( angle = 45, hjust = 1 )
-    ) +
-    ggplot2::labs( title = title )
+    )
 
   return( g )
 }

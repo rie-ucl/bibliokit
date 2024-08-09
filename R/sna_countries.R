@@ -1,6 +1,6 @@
 #' Social Network Analysis - Network of Country Co-occurrences
 #'
-#' This function analyzes co-occurrence data between countries based on shared keywords
+#' The `sna_countries()` function analyses co-occurrence data between countries based on shared keywords
 #' and creates a network graph visualizing the relationships between countries.
 #' The network is constructed based on the frequency of shared keywords between countries.
 #' The resulting graph can help in understanding how countries are connected through common research topics.
@@ -66,8 +66,10 @@ sna_countries <- function( res ) {
       keywords <- unlist( strsplit( entry$authkeywords, "\\|") )
       keywords <- tolower( trimws( keywords ) )
 
-      countries <- unique( sapply( entry$affiliation, function(x) x$`affiliation-country` ) )
-      countries <- countries[!is.na(countries) & countries != ""]
+      # countries <- unique( sapply( entry$affiliation, function(x) x$`affiliation-country` ) )
+      # countries <- countries[!is.na(countries) & countries != ""]
+      countries <- sapply( entry$affiliation, function(x) x$`affiliation-country` )
+      countries <- unique( unlist( countries ) )
 
       if ( length( countries ) > 0 && length( keywords ) > 0) {
         for ( keyword in keywords ) {

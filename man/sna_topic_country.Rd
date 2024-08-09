@@ -20,7 +20,7 @@ The color of the edges is determined by the frequency of connections, with a gra
 from light blue (low frequency) to dark blue (high frequency).
 }
 \description{
-This function performs a network analysis based on topics (keywords) and countries
+The \code{sna_topic_country()} function analyses a network analysis based on topics (keywords) and countries
 from the given publication data. It visualizes the relationship between different
 topics and the countries associated with those topics.
 }

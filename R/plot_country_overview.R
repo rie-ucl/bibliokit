@@ -1,8 +1,8 @@
 #' Plot Country Overview
 #'
-#' This function analyzes the countries associated with publications
-#' from Scopus search results and provides various insights such as
-#' country rankings, global share, and trends over years.
+#' The `plot_country_overview()` function analyses and visualise
+#' the countries associated with publications
+#' from Scopus search results.
 #'
 #' @param res Scopus search results, including `entries`, which is a list of publication details.
 #'   Each entry should have the fields `dc:title`, `prism:coverDate`, and `affiliation`
