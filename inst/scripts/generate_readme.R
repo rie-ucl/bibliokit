@@ -30,7 +30,7 @@ description_section <- paste(
 r_files <- list.files( path = "R", pattern = "\\.R$", full.names = FALSE )
 
 r_descriptions <- lapply( r_files, function( file ) {
-  if ( file == "zzz.R" ){ text <- "| | |" }
+  if ( file == "zzz.R" ){ text <- "" }
   else {
     title <- gsub( "_", " ", sub( "\\.R$", "", file ) )
     title <- tools::toTitleCase( title )
