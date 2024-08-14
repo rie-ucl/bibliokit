@@ -149,8 +149,8 @@ plot_country_trend <- function( res ) {
       ggrepel::geom_label_repel(
         data = latest_data.tib,
         ggplot2::aes( label = country, y = n, fill = country),
-        size = 4, fontface = "bold", colour = "white", label.r = 0,
-        hjust = 0, nudge_x = x_range*12, direction = "y", seed = 42,
+        size = 3, fontface = "bold", colour = "white", label.r = 0,
+        hjust = 0, nudge_x = x_range*20, direction = "y", seed = 42,
         segment.color = NA, show.legend = FALSE ) +
       ggrepel::geom_text_repel(
         ggplot2::aes( label = n ), vjust = -1, nudge_x = 0,

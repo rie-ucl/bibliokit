@@ -11,6 +11,7 @@ This package offers tools for analyzing and visualizing bibliometric data from a
 -    utils (>= 4.3.2)
 -  httr (>= 1.4.7)
 -  readr (>= 2.1.4)
+-  stringr (>= 1.5.1)
 -  dplyr (>= 1.1.4)
 -  tidyr (>= 1.3.1)
 -  tibble (>= 3.2.1)
@@ -20,8 +21,9 @@ This package offers tools for analyzing and visualizing bibliometric data from a
 -  ggraph (>= 2.2.0)
 -  purrr (>= 1.0.2)
 -  rscopus (>= 0.7.2)
--  litsearchr (>= 1.0.0) Suggests:      knitr
--  rmarkdown VignetteBuilder: knitr
+-  litsearchr (>= 1.0.0)
+-  knitr (>= 1.45)
+-  rmarkdown (>= 2.25) VignetteBuilder: knitr
 
 ## download_scopus_data.R
 
@@ -261,8 +263,10 @@ from Scopus search results.
  res Scopus search results, including `entries`, which is a list of publication details.
 Each entry should have the fields `dc:title`, `prism:coverDate`, and `affiliation`
 (with `affiliation-country`).
+
 ### Returned value
  A ggplot2 object showing the analysis results.
+
 ### Example usage of the function with the sample data
 ```r
 
@@ -361,6 +365,8 @@ and choose the `type` of the output from `line` or `stack`.
 ```
 ### Imported libraries
  tidyr
+
+
 
 
 ## plot_country_pairs_trend.R
@@ -483,8 +489,10 @@ the sponsors from Scopus search results..
 ### Parameter
  res Scopus search results, including `entries`, which is a list of publication details.
 Each entry should have the fields `dc:title`, `prism:coverDate`, and `fund-sponsor` (with `fund-acr` for abbreviation).
+
 ### Returned value
  A ggplot2 object showing the analysis results.
+
 ### Example usage of the function with the sample data
 ```r
 
@@ -530,6 +538,9 @@ plot_sponsor_overview( res )
 ```
 ### Imported libraries
  dplyr
+```
+### Imported libraries
+ stringr
 
 
 

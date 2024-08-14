@@ -110,8 +110,8 @@ sna_topic_country <- function( res ) {
 
   layout <- igraph::layout_as_bipartite( g, types = igraph::V(g)$type )
   layout <- layout[ , c(2, 1) ]
-  layout[igraph::V(g)$type == TRUE,  1] <- layout[igraph::V(g)$type == TRUE,  1] + 0.2
-  layout[igraph::V(g)$type == FALSE, 1] <- layout[igraph::V(g)$type == FALSE, 1] - 0.2
+  layout[igraph::V(g)$type == TRUE,  1] <- layout[igraph::V(g)$type == TRUE,  1] + 0.4
+  layout[igraph::V(g)$type == FALSE, 1] <- layout[igraph::V(g)$type == FALSE, 1] - 0.4
 
   (
   g_bi <- ggraph::ggraph( g, layout = layout ) +

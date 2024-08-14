@@ -11,11 +11,13 @@
 #' @param target_country Optional; specific country to filter the pairs by (default is NULL)
 #' @param type Type of a graph
 #' @return A plot object showing the trend of top country pairs by publication year
-#' @export
+#'
 #' @import dplyr
 #' @import ggplot2
 #' @import purrr
 #' @import tidyr
+#'
+#' @export
 
 plot_country_pairs_collaboration_ratio <- function(res, n = 5, target_country = NULL, type = "line") {
   country_pairs <- purrr::map_df(res$entries, function(entry) {

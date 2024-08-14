@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 expanded_terms = c( "optimization", "quantum computing", "classical", "computer", "computers", "computing", "effect", "learning", "noisy", "performance", "process", "quantum", "quantum computer", "quantum computers", "qubit" )
 
-load( "../inst/extdata/sample_data.rda" )
+load( "../inst/extdata/sample_data_quantum.rda" )
 ```
 
 ```{r pull-text, include=FALSE}
@@ -94,10 +94,9 @@ names( res$entries[[1]] )
 
 ## Basic Rankings
 
-Now that you have your own data, you can analyse it with various functions.
+Now that you have your own data, you can analyse it with various functions. Here you can see the example using the search result of `"quantum computing"`.
 
 First of all, you can generate basic rankings from the obtained data. 
-Here you can see the example using the search result of`chopin`, as the data size obtained from `quantum computer` is too big. If you are interested in, you can check the result by using this library!
 
 ### Keywords
 
@@ -173,10 +172,20 @@ bibliokit::plot_country_pairs_trend( res )
 
 ## Social Network Analysis
 
+Last but not least, you can perform social network analysis (SNA) using this library. For effective SNA, datasets with more than 10,000 records can be quite large, so we'll use a smaller dataset with $n = 330$ for demonstration purposes. This data was generated using the keyword `"quantum computing" AND "performance" AND "noisy"`, which was derived from the terms obtained with the `expand_search_terms()` function.
+
+```{r small-data}
+load( "../inst/extdata/sample_data_quantum_noisy.rda" )
+```
+
+### SNA between Topics and Countries
+
 `r pull_text("sna_topic_country")`
 ```{r sna-topic-country}
 bibliokit::sna_topic_country( res )
 ```
+
+### SNA among Countries
 
 `r pull_text("sna_countries")`
 ```{r sna-countries}

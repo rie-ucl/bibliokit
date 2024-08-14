@@ -140,7 +140,9 @@ plot_sponsor_trend <- function( res ) {
         axis.ticks = ggplot2::element_blank(),
         axis.text.x = ggplot2::element_text( angle = 45, hjust = 1 ),
         legend.position = "inside",
-        legend.position.inside = c(0.2,0.8),
+        legend.position.inside = c(0.05,0.8),
+        legend.key.size = ggplot2::unit( 0.4, "cm" ),
+        legend.justification = "left",
         legend.direction = "vertical"
       )
   )

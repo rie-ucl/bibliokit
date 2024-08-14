@@ -5,7 +5,9 @@
 #'
 #' @param res Scopus search results, including `entries`, which is a list of publication details.
 #'   Each entry should have the fields `dc:title`, `prism:coverDate`, and `fund-sponsor` (with `fund-acr` for abbreviation).
+#'
 #' @return A ggplot2 object showing the analysis results.
+#'
 #' @examples
 #' # Create a sample `res` list to simulate Scopus API search results
 #' res = list(
@@ -47,6 +49,7 @@
 #' plot_sponsor_overview( res )
 #'
 #' @import dplyr
+#' @import stringr
 #'
 #' @export
 
@@ -106,7 +109,8 @@ plot_sponsor_overview <- function( res ) {
     ggplot2::ggplot() +
     ggplot2::geom_bar( position = ggplot2::position_stack( reverse = TRUE),
                        ggplot2::aes( y = sponsor, fill = year ) ) +
-    ggplot2::geom_text( stat = "count", ggplot2::aes( y = sponsor, label = ggplot2::after_stat(count) ), hjust = -.5 ) +
+    ggplot2::geom_text( stat = "count", ggplot2::aes( y = sponsor, label = ggplot2::after_stat(count) ),
+                        size = 3, hjust = 0, nudge_x = max_n * 0.01 ) +
     ggplot2::scale_fill_brewer( palette = "RdBu" ) +
     ggplot2::geom_point( data = share_data.tib,
                          ggplot2::aes( x = max(n) * 1.15, y = sponsor, size = share ),
@@ -117,9 +121,10 @@ plot_sponsor_overview <- function( res ) {
                         colour = "navy", show.legend = FALSE ) +
     ggplot2::annotate( "text", x = max_n*0.5, y = len_n + 1, label = "Total Number of Publications" ) +
     ggplot2::annotate( "text", x = max_n*1.2 , y = len_n + 1, label = "Global Share" ) +
-    ggplot2::scale_size_continuous( range = c( 0, 20 )) +
+    ggplot2::scale_size_continuous( range = c( 0, 8 )) +
     ggplot2::scale_x_discrete( expand = c(0,0,0.10,0) ) +
-    ggplot2::scale_y_discrete( expand = c(0,0,0,1.5) ) +
+    ggplot2::scale_y_discrete( expand = c(0,0,0,1.5),
+                               labels = function(x) stringr::str_wrap( x, width = 25 ) ) +
     ggplot2::theme_minimal() +
     ggplot2::labs( x = "Number and Global Share of Publications",
                    y = "Sponsor",
@@ -127,7 +132,10 @@ plot_sponsor_overview <- function( res ) {
     ggplot2::theme(
       legend.position = "inside",
       legend.position.inside = c(0.65, 0.5),
-      legend.box = "vertical"
+      legend.box = "vertical",
+      legend.key.size = ggplot2::unit( 0.3, "cm" ),
+      legend.text = ggplot2::element_text( size = 6.5 ),
+      axis.text.y = element_text( size = 7 )
     )
 
   return( g_bar )
