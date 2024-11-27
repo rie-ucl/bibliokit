@@ -10,20 +10,26 @@
 #' expand_search_terms( c( "data analysis", "machine learning" ) )
 #'
 #' @import utils
+#' @import igraph
+#' @import dplyr
 #'
 #' @export
 
 expand_search_terms <- function( naive_terms ) {
 
-  QUERY = paste0( "TITLE-ABS-KEY (",
-                  paste0('"', naive_terms, '"', collapse = ' AND '),
-                  ")" )
+  QUERY <-
+    paste0( "TITLE-ABS-KEY (",
+            ifelse( length(naive_terms) > 1 ,
+                    paste0('"', naive_terms, '"', collapse = ' AND '),
+                    naive_terms
+                    ),
+            ")" )
 
   res <- rscopus::scopus_search(
           query = QUERY,
           view = "COMPLETE", # to include all authors, COMPLETE view is needed
           count = 25,        # to use COMPLETE view, count should be below 25
-          max_count = 25
+          max_count = 200
          )
 
   entries = res$entries
@@ -39,8 +45,8 @@ expand_search_terms <- function( naive_terms ) {
   keywords <- litsearchr::extract_terms(
     keywords = naive_keywords,
     method = "tagged",
-    min_freq = 1,
     min_n = 1,
+    min_freq = 1,
     stopwords = all_stopwords
   )
 
@@ -49,18 +55,41 @@ expand_search_terms <- function( naive_terms ) {
   title_terms <- litsearchr::extract_terms (
     text = naive_titles,
     method = "fakerake",
-    min_freq = 1,
-    min_n = 1,
+    min_freq = 3,
+    min_n = 2,
     stopwords = all_stopwords
   )
 
-  terms <- unique( c( keywords, title_terms ) )
+  naive_abstracts <- unlist( lapply( entries, function(x) x$`dc:description` ) )
+  abst_terms <- litsearchr::extract_terms(
+    text = naive_abstracts,
+    method = "fakerake",
+    min_freq = 3,
+    min_n = 2,
+    stopwords = all_stopwords
+  )
+
+  # integration
+  terms <- unique( c( keywords, title_terms, abst_terms ) )
 
   # network analysis
-  naive_abstracts <- unlist( lapply( entries, function(x) x$`dc:description` ) )
+  # naive_abstracts <- unlist( lapply( entries, function(x) x$`dc:description` ) )
   docs <- paste( naive_titles, naive_abstracts )
   dfm <- litsearchr::create_dfm( elements = docs, features = terms )
   g <- litsearchr::create_network( dfm, min_studies = 5 )
+
+  strengths <- igraph::strength(g)
+
+  term_strengths <- data.frame( term = names( strengths ), strength = strengths, row.names=NULL) |>
+    dplyr::mutate( rank = rank( strength, ties.method = "min" ) ) |>
+    dplyr::arrange( strength )
+
+  term_strengths |>
+    ggplot2::ggplot( ggplot2::aes( x = rank, y = strength, label = term ) ) +
+    ggplot2::geom_line() +
+    ggplot2::geom_point() +
+    ggplot2::geom_text( data = dplyr::filter( term_strengths, rank > 5 ),
+               hjust = "right", nudge_y = 20, check_overlap = TRUE)
 
   cutoff_cum <- litsearchr::find_cutoff( g, method = "cumulative", percent = 0.8 )
 

@@ -1,15 +1,16 @@
-# BiblioKit
+# bibliokit
 
 This package offers tools for analyzing and visualizing bibliometric data from academic literature. It includes functions for extracting and processing citation data, generating keyword co-occurrence networks, and producing authorand publication statistics. The package aims to assist researchers in exploring trends and patterns in scientific publications.
 
 - **License**: GPL-3
 - **Encoding**: UTF-8
-- **RoxygenNote**: 7.3.1
+- **RoxygenNote**: 7.3.2
 - **Imports**:  utils (>= 4.3.2), httr (>= 1.4.7), readr (>= 2.1.4), stringr (>= 1.5.1), dplyr (>= 1.1.4), tidyr (>= 1.3.1), tibble (>= 3.2.1), ggplot2 (>= 3.5.0), ggrepel (>= 0.9.5), igraph (>= 2.0.3), ggraph (>= 2.2.0), purrr (>= 1.0.2), rscopus (>= 0.7.2), litsearchr (>= 1.0.0), knitr (>= 1.45), rmarkdown (>= 2.25) VignetteBuilder: knitr
 
 ### **Functions**
 | Name | Overview | 
 | --- | --- | 
+| Download Author Profiles | The download_author_profiles() function retrieves detailed author profiles from the existing Scopus Data |
 | Download Scopus Data | The download_scopus_data() function retrieves bibliographic records from the Scopus API for the past N years. |
 | Expand Search Terms | The `expand_search_terms()` function takes one or more initial search terms and returns a query (expanded set of terms) by including related or similar terms. The expansion helps to capture more relevant results by broadening the search. |
 | Get Search Query | This function extracts the search query string from a URL containing Scopus API search parameters. |

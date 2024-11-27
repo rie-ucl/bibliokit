@@ -1,2 +1,4 @@
 .Rproj.user
 inst/doc
+inst/scripts/create_package.R
+inst/scripts/generate_readme.R
